@@ -1,3 +1,9 @@
+<?php
+include ("connexion.php");
+$requeteCategorie = "SELECT * FROM sae203_categories";
+$stmt=$db->query($requeteCategorie);
+$resultCategorie=$stmt->fetchall(PDO::FETCH_ASSOC);
+?>
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -63,12 +69,11 @@
                             Catégorie d'évènements
                         </label>
                         <select id="type" name="type-evenement">
-                            <option value="1">Tous</option>
-                            <option value="2">Jeux d'ambiance</option>
-                            <option value="3">Escape Game</option>
-                            <option value="4">Stratégie</option>
-                            <option value="5">Jeux de cartes</option>
-                            <option value="6">Jeux de rôle</option>
+                            <?php foreach ($resultCategorie as $row) { ?>
+                            <option value="ID_Categorie=<?php echo $row["ID_Categorie"]?>">
+                                <?php echo $row["Nom_categorie"]?></option>
+                            <?php }?>
+
                         </select>
                     </div>
                     <input type="submit" value="Rechercher">
@@ -96,7 +101,7 @@
                             <img src="Image/Evement_Monopoly.jpg" alt="Évènement Monopoly" />
                         </div>
                         <div class="card-content">
-                            <p class="card-content_date">26 Sep. 2023 • 14h30 à 17h00 </p>
+                            <p class="card-content_date">26 Sep. 2023 • 14h30</p>
                             <h1 class="card-content_title">Après-midi Monopoly
                             </h1>
                             <p class="card-content_desc">Venez jouez au jeu Monopoly dans une ambiance chaleureuse</p>
