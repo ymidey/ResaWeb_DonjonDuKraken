@@ -1,19 +1,15 @@
 <?php
-include ("connexion.php");
+include ("header.php");
 $requeteCategorie = "SELECT * FROM sae203_categories";
 $stmt=$db->query($requeteCategorie);
 $resultCategorie=$stmt->fetchall(PDO::FETCH_ASSOC);
-?>
-<!DOCTYPE html>
-<html lang="fr">
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Le donjon du Kraken - Réservations d'évènement de jeux de société</title>
-    <link rel="stylesheet" href="style.css">
-</head>
+$requeteProchainEvenement = "SELECT *, DATE_FORMAT(sae203_evenements.Date_Evenement, '%Y-%m-%d') AS date_evenement, 
+                                TIME_FORMAT(sae203_evenements.Date_Evenement, '%H:%i:%s') AS heure_evenement 
+                                FROM sae203_jeux, sae203_evenements WHERE sae203_jeux.ID_Jeu = sae203_evenements.ID_Jeu ORDER BY Date_Evenement ASC LIMIT 8";
+$stmt=$db->query($requeteProchainEvenement);
+$resultProchainEvenement=$stmt->fetchall(PDO::FETCH_ASSOC);
+?>
 
 <body>
     <!-- NavBar -->
@@ -22,7 +18,7 @@ $resultCategorie=$stmt->fetchall(PDO::FETCH_ASSOC);
             <a href="#form_reservation" class="skip-link">Passer au formulaire</a>
             <div class="logo">
                 <a href="#">
-                    <img src="Image/Logo_sansTexte.svg" alt="Accueil">
+                    <img src="Images/Logo_sansTexte.svg" alt="Accueil">
                 </a>
             </div>
             <ul class="links">
@@ -83,162 +79,63 @@ $resultCategorie=$stmt->fetchall(PDO::FETCH_ASSOC);
         <!-- Nouveaux evenements section -->
         <section class="nouveaux-evenements">
             <div class="head">
-                <h1 class="title">Nos nouveaux évènements</h1>
+                <h1 class="title">Nos prochains évènements</h1>
                 <div class="btn-container">
                     <button class="btn-slide btn-left">
-                        <img src="Image/chevron.svg" alt="évènements précédent">
+                        <img src="Images/chevron.svg" alt="évènements précédent">
                     </button>
                     <button class="btn-slide btn-right">
-                        <img src="Image/chevron.svg" alt="évènements suivant">
+                        <img src="Images/chevron.svg" alt="évènements suivant">
                     </button>
                 </div>
             </div>
 
             <div class="card">
+                <?php foreach ($resultProchainEvenement as $row){ ?>
                 <div class="card-container">
                     <a href="#">
-                        <div class="card-container_image">
-                            <img src="Image/Evement_Monopoly.jpg" alt="Évènement Monopoly" />
+                        <div class="card-container_images">
+                            <img src="Images/Image_jeu/<?php echo $row["Image_Jeu"]?>.jpg"
+                                alt="<?php echo $row["Nom"]?>" />
                         </div>
                         <div class="card-content">
-                            <p class="card-content_date">26 Sep. 2023 • 14h30</p>
-                            <h1 class="card-content_title">Après-midi Monopoly
+                            <p class="card-content_date"><?php echo $row["date_evenement"]?> •
+                                <?php echo $row["heure_evenement"]?></p>
+                            <h1 class="card-content_title"><?php echo $row["Titre"]?>
                             </h1>
-                            <p class="card-content_desc">Venez jouez au jeu Monopoly dans une ambiance chaleureuse</p>
+                            <p class="card-content_desc"><?php echo $row["Description"]?></p>
                             <div class="flex-row">
                                 <div class="card-content_price">
-                                    <p>3€ / pers.</p>
+                                    <p><?php echo $row["Prix"]?>€ / pers.</p>
                                 </div>
                                 <div class="card-content_seats">
-                                    <p>5 places restantes</p>
+                                    <p><?php echo $row["Nb_Place"]?> places restantes</p>
                                 </div>
                             </div>
                             <div class="card-link">
                                 <button>Détails</button>
-                                <button>Ajouter au panier <img src="Image/ajout-produit-panier.svg" class="ajout-panier"
-                                        alt=""></button>
+                                <button>Ajouter au panier <img src="Images/ajout-produit-panier.svg"
+                                        class="ajout-panier" alt=""></button>
                             </div>
                         </div>
                     </a>
                 </div>
-
-                <div class="card-container">
-                    <div class="card-container_image">
-                        <img src="Image/Evement_Monopoly.jpg" alt="Évènement Monopoly" />
-                    </div>
-                    <div class="card-content">
-                        <p class="card-content_date">26 Sep. 2023 • 14h30 à 17h00 </p>
-                        <h1 class="card-content_title"><a href="#">Après-midi Monopoly
-                            </a></h1>
-                        <p class="card-content_desc">Venez jouez au jeu Monopoly dans une ambiance chaleureuse</p>
-                        <div class="flex-row">
-                            <div class="card-content_price">
-                                <p>3€ / pers.</p>
-                            </div>
-                            <div class="card-content_seats">
-                                <p>5 places restantes</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card-container">
-                    <div class="card-container_image">
-                        <img src="Image/Evement_Monopoly.jpg" alt="Évènement Monopoly" />
-                    </div>
-                    <div class="card-content">
-                        <p class="card-content_date">26 Sep. 2023 • 14h30 à 17h00 </p>
-                        <h1 class="card-content_title"><a href="#">Après-midi Monopoly
-                            </a></h1>
-                        <p class="card-content_desc">Venez jouez au jeu Monopoly dans une ambiance chaleureuse
-                        </p>
-                        <div class="flex-row">
-                            <div class="card-content_price">
-                                <p>3€ / pers.</p>
-                            </div>
-                            <div class="card-content_seats">
-                                <p>5 places restantes</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card-container">
-                    <div class="card-container_image">
-                        <img src="Image/Evement_Monopoly.jpg" alt="Évènement Monopoly" />
-                    </div>
-                    <div class="card-content">
-                        <p class="card-content_date">26 Sep. 2023 • 14h30 à 17h00 </p>
-                        <h1 class="card-content_title"><a href="#">Après-midi Monopoly
-                            </a></h1>
-                        <p class="card-content_desc">Venez jouez au jeu Monopoly dans une ambiance
-                            chaleureuse</p>
-                        <div class="flex-row">
-                            <div class="card-content_price">
-                                <p>3€ / pers.</p>
-                            </div>
-                            <div class="card-content_seats">
-                                <p>5 places restantes</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card-container">
-                    <div class="card-container_image">
-                        <img src="Image/Evement_Monopoly.jpg" alt="Évènement Monopoly" />
-                    </div>
-                    <div class="card-content">
-                        <p class="card-content_date">26 Sep. 2023 • 14h30 à 17h00 </p>
-                        <h1 class="card-content_title"><a href="#">Après-midi Monopoly
-                            </a></h1>
-                        <p class="card-content_desc">Venez jouez au jeu Monopoly dans une ambiance
-                            chaleureuse</p>
-                        <div class="flex-row">
-                            <div class="card-content_price">
-                                <p>3€ / pers.</p>
-                            </div>
-                            <div class="card-content_seats">
-                                <p>5 places restantes</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card-container">
-                    <div class="card-container_image">
-                        <img src="Image/Evement_Monopoly.jpg" alt="Évènement Monopoly" />
-                    </div>
-                    <div class="card-content">
-                        <p class="card-content_date">26 Sep. 2023 • 14h30 à 17h00 </p>
-                        <h1 class="card-content_title"><a href="#">Après-midi Monopoly
-                            </a></h1>
-                        <p class="card-content_desc">Venez jouez au jeu Monopoly dans une ambiance
-                            chaleureuse</p>
-                        <div class="flex-row">
-                            <div class="card-content_price">
-                                <p>3€ / pers.</p>
-                            </div>
-                            <div class="card-content_seats">
-                                <p>5 places restantes</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
+                <?php }?>
             </div>
+
+
         </section>
 
         <!-- Nouveaux evenements section -->
         <section class="nouveaux-tournois">
             <div class="head">
-                <h1 class="title">Nos nouveaux tournois</h1>
+                <h1 class="title">Nos nouveaux évènements</h1>
             </div>
             <div class="card">
                 <div class="card-container">
                     <a href="#">
-                        <div class="card-container_image">
-                            <img src="Image/Cat_JeuCarte_illustration.jpg" alt="Tournoi Yu-Gi-Oh" />
+                        <div class="card-container_images">
+                            <img src="Images/Cat_JeuCarte_illustration.jpg" alt="Tournoi Yu-Gi-Oh" />
                         </div>
                         <div class="card-content">
                             <p class="card-content_date">07 Sep. 2023 • 17h30 à 19h00 </p>
@@ -261,8 +158,8 @@ $resultCategorie=$stmt->fetchall(PDO::FETCH_ASSOC);
                 </div>
                 <div class="card-container">
                     <a href="#">
-                        <div class="card-container_image">
-                            <img src="Image/Cat_JeuCarte_illustration.jpg" alt="Tournoi Yu-Gi-Oh" />
+                        <div class="card-container_images">
+                            <img src="Images/Cat_JeuCarte_illustration.jpg" alt="Tournoi Yu-Gi-Oh" />
                         </div>
                         <div class="card-content">
                             <p class="card-content_date">07 Sep. 2023 • 17h30 à 19h00 </p>
@@ -283,8 +180,8 @@ $resultCategorie=$stmt->fetchall(PDO::FETCH_ASSOC);
                 </div>
                 <div class="card-container">
                     <a href="#">
-                        <div class="card-container_image">
-                            <img src="Image/Cat_JeuCarte_illustration.jpg" alt="Tournoi Yu-Gi-Oh" />
+                        <div class="card-container_images">
+                            <img src="Images/Cat_JeuCarte_illustration.jpg" alt="Tournoi Yu-Gi-Oh" />
                         </div>
                         <div class="card-content">
                             <p class="card-content_date">07 Sep. 2023 • 17h30 à 19h00 </p>
@@ -305,8 +202,8 @@ $resultCategorie=$stmt->fetchall(PDO::FETCH_ASSOC);
                 </div>
                 <div class="card-container">
                     <a href="#">
-                        <div class="card-container_image">
-                            <img src="Image/Cat_JeuCarte_illustration.jpg" alt="Tournoi Yu-Gi-Oh" />
+                        <div class="card-container_images">
+                            <img src="Images/Cat_JeuCarte_illustration.jpg" alt="Tournoi Yu-Gi-Oh" />
                         </div>
                         <div class="card-content">
                             <p class="card-content_date">07 Sep. 2023 • 17h30 à 19h00 </p>
@@ -335,7 +232,7 @@ $resultCategorie=$stmt->fetchall(PDO::FETCH_ASSOC);
             <h1 class="title">À propos</h1>
             <div class="img-desc">
                 <div class="left">
-                    <img src="Image/Logo_Entreprise.svg" alt=""></video>
+                    <img src="Images/Logo_DonjonKraken.svg" alt=""></video>
                 </div>
 
                 <div class="right">
@@ -363,7 +260,7 @@ $resultCategorie=$stmt->fetchall(PDO::FETCH_ASSOC);
             <div class="content">
                 <!-- cart -->
                 <div class="cart">
-                    <img src="Image/Cat_famille_illustration.jpg" alt="evenements jeux familiale">
+                    <img src="Images/Cat_famille_illustration.jpg" alt="evenements jeux familiale">
                     <div class=" content">
                         <div>
                             <h2>Jeux d'ambiance</h2>
@@ -373,7 +270,7 @@ $resultCategorie=$stmt->fetchall(PDO::FETCH_ASSOC);
 
                 <!-- cart -->
                 <div class="cart">
-                    <img src="Image/Cat_EscapeGame_illustration.jpg" alt="evenements jeux Escape-game">
+                    <img src="Images/Cat_EscapeGame_illustration.jpg" alt="evenements jeux Escape-game">
                     <div class="content">
                         <div>
                             <h2>Escape-game</h2>
@@ -383,7 +280,7 @@ $resultCategorie=$stmt->fetchall(PDO::FETCH_ASSOC);
 
                 <!-- cart -->
                 <div class="cart">
-                    <img src="Image/Cat_Strategie_illustrration.jpg" alt="evenements jeux stratégie">
+                    <img src="Images/Cat_Strategie_illustrration.jpg" alt="evenements jeux stratégie">
                     <div class="content">
                         <div>
                             <h2>Stratégie</h2>
@@ -393,7 +290,7 @@ $resultCategorie=$stmt->fetchall(PDO::FETCH_ASSOC);
 
                 <!-- cart -->
                 <div class="cart">
-                    <img src="Image/Cat_JeuCarte_illustration.jpg" alt="">
+                    <img src="Images/Cat_JeuCarte_illustration.jpg" alt="">
                     <div class="content">
                         <div>
                             <h2>Jeux de cartes</h2>
@@ -403,7 +300,7 @@ $resultCategorie=$stmt->fetchall(PDO::FETCH_ASSOC);
 
                 <!-- cart -->
                 <div class="cart">
-                    <img src="Image/Cat_JeuRole_illustration.jpg" alt="">
+                    <img src="Images/Cat_JeuRole_illustration.jpg" alt="">
                     <div class="content">
                         <div>
                             <h2>Jeux de rôle</h2>
@@ -416,7 +313,7 @@ $resultCategorie=$stmt->fetchall(PDO::FETCH_ASSOC);
 
     <footer class="footer">
         <div class="footer_addr">
-            <img src="Image/Logo_Entreprise.svg" alt="" class="footer_logo">
+            <img src="Images/Logo_DonjonKraken.svg" alt="" class="footer_logo">
 
             <h1>Nous contacter :</h1>
             <address>2 Rue Albert Einstein, 77420 Champs-sur-Marne <br>
@@ -426,13 +323,13 @@ $resultCategorie=$stmt->fetchall(PDO::FETCH_ASSOC);
 
         <ul class="footer_nav">
             <li class="nav_item">
-                <h2 class="nav_title">Types d'évènements</h2>
+                <h2 class="nav_title">Nos évènements</h2>
                 <ul class="nav_ul">
                     <li>
-                        <a href="#">Évènements amical</a>
+                        <a href="#">Prochains évènements</a>
                     </li>
                     <li>
-                        <a href="#">Nos tournois</a>
+                        <a href="#">Nouveaux évènements</a>
                     </li>
                 </ul>
             </li>
