@@ -4,11 +4,13 @@ $requeteCategorie = "SELECT * FROM sae203_categories";
 $stmt=$db->query($requeteCategorie);
 $resultCategorie=$stmt->fetchall(PDO::FETCH_ASSOC);
 
-$requeteProchainEvenement = "SELECT *, DATE_FORMAT(sae203_evenements.Date_Evenement, '%Y-%m-%d') AS date_evenement, 
-                                TIME_FORMAT(sae203_evenements.Date_Evenement, '%H:%i:%s') AS heure_evenement 
-                                FROM sae203_jeux, sae203_evenements WHERE sae203_jeux.ID_Jeu = sae203_evenements.ID_Jeu ORDER BY Date_Evenement ASC LIMIT 8";
+$requeteProchainEvenement = "SELECT * FROM sae203_jeux, sae203_evenements WHERE sae203_jeux.ID_Jeu = sae203_evenements.ID_Jeu ORDER BY Date_Evenement ASC LIMIT 7";
 $stmt=$db->query($requeteProchainEvenement);
 $resultProchainEvenement=$stmt->fetchall(PDO::FETCH_ASSOC);
+
+$requeteNouveauEvenement = "SELECT * FROM sae203_jeux, sae203_evenements WHERE sae203_jeux.ID_Jeu = sae203_evenements.ID_Jeu ORDER BY DATEDIFF(NOW(), Date_Creation) DESC LIMIT 5";
+$stmt=$db->query($requeteNouveauEvenement);
+$resultNouveauEvenement=$stmt->fetchall(PDO::FETCH_ASSOC);
 ?>
 
 <body>
@@ -76,8 +78,8 @@ $resultProchainEvenement=$stmt->fetchall(PDO::FETCH_ASSOC);
                 </form>
         </section>
 
-        <!-- Nouveaux evenements section -->
-        <section class="nouveaux-evenements">
+        <!-- Prochains evenements section -->
+        <section class="prochains-evenements">
             <div class="head">
                 <h1 class="title">Nos prochains évènements</h1>
                 <div class="btn-container">
@@ -99,8 +101,10 @@ $resultProchainEvenement=$stmt->fetchall(PDO::FETCH_ASSOC);
                                 alt="<?php echo $row["Nom"]?>" />
                         </div>
                         <div class="card-content">
-                            <p class="card-content_date"><?php echo $row["date_evenement"]?> •
-                                <?php echo $row["heure_evenement"]?></p>
+                            <p class="card-content_date">
+                                <?php  $date_evenement = new DateTime($row["Date_Evenement"]);
+                                echo $date_evenement->format("j F Y, H:i");?>
+                            </p>
                             <h1 class="card-content_title"><?php echo $row["Titre"]?>
                             </h1>
                             <p class="card-content_desc"><?php echo $row["Description"]?></p>
@@ -123,107 +127,47 @@ $resultProchainEvenement=$stmt->fetchall(PDO::FETCH_ASSOC);
                 <?php }?>
             </div>
 
-
         </section>
 
         <!-- Nouveaux evenements section -->
-        <section class="nouveaux-tournois">
+        <section class="nouveaux-evenements">
             <div class="head">
                 <h1 class="title">Nos nouveaux évènements</h1>
             </div>
             <div class="card">
+                <?php foreach ($resultNouveauEvenement as $row){ ?>
                 <div class="card-container">
                     <a href="#">
                         <div class="card-container_images">
-                            <img src="Images/Cat_JeuCarte_illustration.jpg" alt="Tournoi Yu-Gi-Oh" />
+                            <div class="nouveaute">Nouveauté</div>
+                            <img src="Images/Image_jeu/<?php echo $row["Image_Jeu"]?>.jpg"
+                                alt="<?php echo $row["Nom"]?>" />
                         </div>
                         <div class="card-content">
-                            <p class="card-content_date">07 Sep. 2023 • 17h30 à 19h00 </p>
-                            <h1 class="card-content_title">Tournoi Yu-Gi-Oh
+                            <p class="card-content_date">
+                                <?php  $date_evenement = new DateTime($row["Date_Evenement"]);
+                                echo $date_evenement->format("j F Y, H:i");?>
+                            </p>
+                            <h1 class="card-content_title"><?php echo $row["Titre"]?>
                             </h1>
-                            <p class="card-content_desc">Tournoi Yu-Gi-Oh série carte Photon Hypernova 2023 <br><br>
-                                CashPrice pour le vainqueur: 6 Boosters Yu-Gi-Oh Photon Hypernova</p>
+                            <p class="card-content_desc"><?php echo $row["Description"]?></p>
                             <div class="flex-row">
                                 <div class="card-content_price">
-                                    <p>8€ / pers.</p>
+                                    <p><?php echo $row["Prix"]?>€ / pers.</p>
                                 </div>
                                 <div class="card-content_seats">
-                                    <p>9 places restantes</p>
+                                    <p><?php echo $row["Nb_Place"]?> places restantes</p>
                                 </div>
                             </div>
-                            <button>Détails</button>
-                            <button>Ajouter au panier</button>
-                        </div>
-                    </a>
-                </div>
-                <div class="card-container">
-                    <a href="#">
-                        <div class="card-container_images">
-                            <img src="Images/Cat_JeuCarte_illustration.jpg" alt="Tournoi Yu-Gi-Oh" />
-                        </div>
-                        <div class="card-content">
-                            <p class="card-content_date">07 Sep. 2023 • 17h30 à 19h00 </p>
-                            <h1 class="card-content_title">Tournoi Yu-Gi-Oh
-                            </h1>
-                            <p class="card-content_desc">Tournoi Yu-Gi-Oh série carte Photon Hypernova 2023 <br><br>
-                                CashPrice pour le vainqueur: 6 Boosters Yu-Gi-Oh Photon Hypernova</p>
-                            <div class="flex-row">
-                                <div class="card-content_price">
-                                    <p>8€ / pers.</p>
-                                </div>
-                                <div class="card-content_seats">
-                                    <p>9 places restantes</p>
-                                </div>
+                            <div class="card-link">
+                                <button>Détails</button>
+                                <button>Ajouter au panier <img src="Images/ajout-produit-panier.svg"
+                                        class="ajout-panier" alt=""></button>
                             </div>
                         </div>
                     </a>
                 </div>
-                <div class="card-container">
-                    <a href="#">
-                        <div class="card-container_images">
-                            <img src="Images/Cat_JeuCarte_illustration.jpg" alt="Tournoi Yu-Gi-Oh" />
-                        </div>
-                        <div class="card-content">
-                            <p class="card-content_date">07 Sep. 2023 • 17h30 à 19h00 </p>
-                            <h1 class="card-content_title">Tournoi Yu-Gi-Oh
-                            </h1>
-                            <p class="card-content_desc">Tournoi Yu-Gi-Oh série carte Photon Hypernova 2023 <br><br>
-                                CashPrice pour le vainqueur: 6 Boosters Yu-Gi-Oh Photon Hypernova</p>
-                            <div class="flex-row">
-                                <div class="card-content_price">
-                                    <p>8€ / pers.</p>
-                                </div>
-                                <div class="card-content_seats">
-                                    <p>9 places restantes</p>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="card-container">
-                    <a href="#">
-                        <div class="card-container_images">
-                            <img src="Images/Cat_JeuCarte_illustration.jpg" alt="Tournoi Yu-Gi-Oh" />
-                        </div>
-                        <div class="card-content">
-                            <p class="card-content_date">07 Sep. 2023 • 17h30 à 19h00 </p>
-                            <h1 class="card-content_title">Tournoi Yu-Gi-Oh
-                            </h1>
-                            <p class="card-content_desc">Tournoi Yu-Gi-Oh série carte Photon Hypernova 2023 <br><br>
-                                CashPrice pour le vainqueur: 6 Boosters Yu-Gi-Oh Photon Hypernova</p>
-                            <div class="flex-row">
-                                <div class="card-content_price">
-                                    <p>8€ / pers.</p>
-                                </div>
-                                <div class="card-content_seats">
-                                    <p>9 places restantes</p>
-                                </div>
-                            </div>
-
-                        </div>
-                    </a>
-                </div>
-
+                <?php }?>
             </div>
         </section>
 
@@ -260,7 +204,7 @@ $resultProchainEvenement=$stmt->fetchall(PDO::FETCH_ASSOC);
             <div class="content">
                 <!-- cart -->
                 <div class="cart">
-                    <img src="Images/Cat_famille_illustration.jpg" alt="evenements jeux familiale">
+                    <img src="Images/Cat_famille.jpg" alt="evenements jeux familiale">
                     <div class=" content">
                         <div>
                             <h2>Jeux d'ambiance</h2>
@@ -270,7 +214,7 @@ $resultProchainEvenement=$stmt->fetchall(PDO::FETCH_ASSOC);
 
                 <!-- cart -->
                 <div class="cart">
-                    <img src="Images/Cat_EscapeGame_illustration.jpg" alt="evenements jeux Escape-game">
+                    <img src="Images/Cat_EscapeGame.jpg" alt="evenements jeux Escape-game">
                     <div class="content">
                         <div>
                             <h2>Escape-game</h2>
@@ -290,7 +234,7 @@ $resultProchainEvenement=$stmt->fetchall(PDO::FETCH_ASSOC);
 
                 <!-- cart -->
                 <div class="cart">
-                    <img src="Images/Cat_JeuCarte_illustration.jpg" alt="">
+                    <img src="Images/Cat_JeuCarte.jpg" alt="">
                     <div class="content">
                         <div>
                             <h2>Jeux de cartes</h2>
@@ -300,7 +244,7 @@ $resultProchainEvenement=$stmt->fetchall(PDO::FETCH_ASSOC);
 
                 <!-- cart -->
                 <div class="cart">
-                    <img src="Images/Cat_JeuRole_illustration.jpg" alt="">
+                    <img src="Images/Cat_JeuRole.jpg" alt="">
                     <div class="content">
                         <div>
                             <h2>Jeux de rôle</h2>
