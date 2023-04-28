@@ -12,3 +12,13 @@ scroll_left.addEventListener("click", function () {
 })
 
 
+document.addEventListener('DOMContentLoaded', () => {
+    const triLinks = document.querySelectorAll('.tri a');
+    triLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const tri = e.target.getAttribute('data-tri');
+            window.location.href = `nos-evenements.php?tri=${tri}`;
+        });
+    });
+});

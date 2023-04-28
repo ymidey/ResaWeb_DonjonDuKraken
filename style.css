@@ -7,6 +7,20 @@ a {
     text-decoration: none;
 }
 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "poppins", sans-serif;
+    scroll-behavior: smooth;
+}
+
+body {
+    height: 100vh;
+    width: 100%;
+    background-color: black;
+}
+
 section {
     padding: 0 8%;
 }
@@ -34,26 +48,6 @@ section {
     height: 100%;
     background-color: #fff;
     width: 5px;
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "poppins", sans-serif;
-    scroll-behavior: smooth;
-}
-
-.head {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-body {
-    height: 100vh;
-    width: 100%;
-    background-color: black;
 }
 
 /* Skip link */
@@ -289,7 +283,6 @@ nav .links li:nth-child(-n + 4) a:hover::after {
     border-radius: 15px;
     padding: 2rem 2rem 1rem 2rem;
     color: #d7d3d3;
-    scroll-snap-align: start;
 }
 
 .card-container:hover {
@@ -317,6 +310,8 @@ nav .links li:nth-child(-n + 4) a:hover::after {
     color: #c1784a;
 }
 
+
+
 .card-container .card-content .card-link button {
     border: #c1784a solid 1px;
     border-radius: 5%;
@@ -336,17 +331,27 @@ nav .links li:nth-child(-n + 4) a:hover::after {
     max-width: 30px;
 }
 
-.card-container .card-container_image {
+.card-container .card-container_images {
     display: flex;
+    position: relative;
     align-items: center;
     justify-content: center;
     padding-bottom: 30px;
 }
 
-.card-container .card-container_image img {
-    width: 250px;
-    height: 300px;
+.card-container .card-container_images img {
     border-radius: 3%;
+}
+
+.card-container .card-container_images .nouveaute {
+    position: absolute;
+    top: 2px;
+    left: 0px;
+    background-color: rgb(226, 7, 7);
+    color: white;
+    padding: 8px;
+    font-size: 14px;
+    font-weight: bold;
 }
 
 /* Bouton slider section Nouveaux et prochains evenements */
@@ -589,7 +594,6 @@ nav .links li:nth-child(-n + 4) a:hover::after {
     color: #e9d9d9;
 }
 
-
 @media screen and (min-width: 24.375em) {
     .footer .legal .legal_links {
         margin-left: auto;
@@ -612,4 +616,178 @@ nav .links li:nth-child(-n + 4) a:hover::after {
     .footer .footer_nav {
         flex: 2 0px;
     }
+}
+
+/* a-propos.php css */
+
+.apropos {
+    position: relative;
+    top: 10vh;
+    color: white;
+}
+
+.apropos h1 {
+    text-align: center;
+}
+
+.apropos .createur {
+    display: block;
+    background-color: #212020;
+    margin: 2% 5% 2% 5%;
+    padding: 2%;
+}
+
+.apropos .createur h2 {
+    color: #dc976c;
+    padding: 1% 0 1% 0;
+}
+
+.mentionslegales {
+    display: block;
+    background-color: #212020;
+    margin: 2% 5% 10% 5%;
+    padding: 2%;
+}
+
+.mentionslegales h2 {
+    color: #dc976c;
+    padding: 2% 0 2% 0;
+}
+
+.mentionslegales h3 {
+    padding-top: 7px;
+    padding-bottom: 2px;
+}
+
+/* nos-evenements.php */
+.nos-evenements {
+    position: relative;
+    display: flex;
+    width: 100%;
+    gap: 5px;
+    top: 12vh;
+    color: white;
+    margin-bottom: 400px;
+}
+
+.test {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 0 30px 0 30px;
+}
+
+.filter-form {
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    background-color: #1f1b1b;
+}
+
+
+.filter-form h1 {
+    margin: 30px 10px 20px 10px;
+    font-size: 1.4rem;
+    color: #dc976c;
+    text-decoration: underline;
+}
+
+.filter-form h2 {
+    font-size: 1.2rem;
+}
+
+.filter-form input[type="submit"] {
+    align-self: center;
+    color: #fff;
+    cursor: pointer;
+    background-color: transparent;
+    transition: 0.5s;
+    padding: 8px 4px 8px 4px;
+    margin-bottom: 10px;
+    font-size: 1.15rem;
+    border-radius: 10%;
+    width: fit-content;
+}
+
+.filter-form input[type="submit"]:hover {
+    box-shadow: 0 0 10px #c1784a;
+}
+
+.filter {
+    margin: 25px;
+}
+
+.filter-categorie .checkbox {
+    display: flex;
+    flex-direction: column;
+}
+
+.recherche {
+    color: #555;
+    max-height: 45px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding: 1px;
+    border: 1px solid;
+    border-radius: 5px;
+}
+
+.recherche input[type="search"] {
+    border: none;
+    width: 95%;
+    color: white;
+    background: transparent;
+    margin: 0;
+    padding: 7px 8px;
+    font-size: 0.975rem;
+    border: 1px solid transparent;
+}
+
+
+input[type="search"]::placeholder {
+    color: #bbb;
+}
+
+.recherche button[type="submit"] {
+    border: none;
+    background: none;
+    cursor: pointer;
+    filter: invert(1);
+    opacity: 0.7;
+    height: 100%;
+}
+
+.recherche button[type="submit"] img {
+    height: 100%;
+    margin-right: 5px;
+}
+
+button[type="submit"]:hover {
+    opacity: 1;
+}
+
+.card-evenement {
+    display: grid;
+    grid-template-columns: auto auto auto auto auto;
+    grid-template-rows: auto;
+    gap: 10px;
+}
+
+.tri {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.tri span {
+    margin-right: 10px;
+}
+
+.tri a {
+    padding: 5px;
+    margin-right: 10px;
+    color: blue;
+    text-decoration: none;
+    cursor: pointer;
 }

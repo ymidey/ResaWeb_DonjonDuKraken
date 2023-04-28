@@ -12,3 +12,23 @@ include ("connexion.php");
     <title>Le donjon du Kraken - Réservations d'évènement de jeux de société</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
+<body>
+    <!-- NavBar -->
+    <header>
+        <nav>
+            <a href="#form_reservation" class="skip-link">Passer au formulaire</a>
+            <div class="logo">
+                <a href="accueil.php">
+                    <img src="Images/Logo_sansTexte.svg" alt="Accueil">
+                </a>
+            </div>
+            <ul class="links">
+                <li><a href="accueil.php">Accueil</a></li>
+                <li><a href="nos-evenements.php">Nos évènements</a></li>
+                <li><a href="a-propos.php">À propos</a></li>
+                <li><a href="#" class="btn-panier">Mon panier</a></li>
+            </ul>
+
+        </nav>
+    </header>
