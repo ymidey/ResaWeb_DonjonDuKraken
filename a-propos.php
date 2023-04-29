@@ -7,15 +7,23 @@ include ("header.php");
     <section class="createur" id="createur">
         <h2>Qui suis-je ?</h2>
         <p>Salut, Je m'appelle Yannick Midey et je suis étudiant en première année de BUT MMI à l'IUT de
-            Champs-Sur-Marne,
-            j'ai réalisé ce site de réservation dans le cadre d'un projet tutoré de second semestre nommé ResaWeb.<br>
-            J'ai fait le choix de créer une plateforme de réservation d'événement de jeux de société car j'ai dévéloppé
-            un atrait particulier pour les jeux de société, notamment pour les escapes-games. Cependant, dans cette
-            récente passion, je me suis apperçu de deux principaux probèmes, le prix des jeux de sociétés et un nombre
-            de joueur conséquent requis pour de nombreux jeux.
+            Champs-Sur-Marne.
+            J'ai réalisé ce site de réservation de jeu de société dans le cadre d'un projet tutoré de second semestre
+            nommé ResaWeb.
+            <br>
+    </section>
+
+    <section class="concept" id="concept">
+        <h2>Pourquoi ce type de plateforme ?</h2>
+        J'ai fait le choix de créer une plateforme de réservation d'événement de jeux de société car j'ai dévéloppé
+        un atrait particulier pour les jeux de société lors du confinement, notamment pour les escapes-games. Cependant,
+        dans cette
+        récente passion, je me suis apperçu de deux principaux probèmes, le prix des jeux de sociétés et un nombre
+        de joueur conséquent requis pour de nombreux jeux.
         </p>
         <br>
-        <p>Cette plateforme permet donc de résoudre ses deux problèmes. En effet, elle permet à n'importe qui de
+        <p>Cette plateforme "Le Donjon du Kraken" permet donc de résoudre ses deux problèmes. En effet, elle permet à
+            n'importe qui de
             tester de nombreux jeux différents et variés, à un coût réduit, mais également de pouvoir jouer avec un
             grand nombre de joueur
         </p>

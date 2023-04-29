@@ -56,7 +56,7 @@
                 </li>
 
                 <li>
-                    <a href="a-propos.php#createur">Le concept</a>
+                    <a href="a-propos.php#concept">Le concept</a>
                 </li>
                 <li>
                     <a href="a-propos.php#mentionslegales">Mentions légals</a>

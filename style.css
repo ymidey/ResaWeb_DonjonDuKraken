@@ -127,7 +127,7 @@ nav .links li:nth-child(-n + 4) a::after {
     transition: .5s ease;
 }
 
-nav .links li:nth-child(-n + 4) a:hover::after {
+nav .links li:nth-child(-n + 3) a:hover::after {
     transform: translateY(0);
     opacity: 1;
 }
@@ -309,8 +309,6 @@ nav .links li:nth-child(-n + 4) a:hover::after {
     padding: 0.4em 0;
     color: #c1784a;
 }
-
-
 
 .card-container .card-content .card-link button {
     border: #c1784a solid 1px;
@@ -618,8 +616,7 @@ nav .links li:nth-child(-n + 4) a:hover::after {
     }
 }
 
-/* a-propos.php css */
-
+/* a-propos.php page css */
 .apropos {
     position: relative;
     top: 10vh;
@@ -630,36 +627,24 @@ nav .links li:nth-child(-n + 4) a:hover::after {
     text-align: center;
 }
 
-.apropos .createur {
+.apropos section {
     display: block;
     background-color: #212020;
     margin: 2% 5% 2% 5%;
     padding: 2%;
 }
 
-.apropos .createur h2 {
+.apropos section h2 {
     color: #dc976c;
     padding: 1% 0 1% 0;
 }
 
-.mentionslegales {
-    display: block;
-    background-color: #212020;
-    margin: 2% 5% 10% 5%;
-    padding: 2%;
-}
-
-.mentionslegales h2 {
-    color: #dc976c;
-    padding: 2% 0 2% 0;
-}
-
-.mentionslegales h3 {
+.apropos .mentionslegales h3 {
     padding-top: 7px;
     padding-bottom: 2px;
 }
 
-/* nos-evenements.php */
+/* nos-evenements.php page css */
 .nos-evenements {
     position: relative;
     display: flex;
@@ -684,9 +669,13 @@ nav .links li:nth-child(-n + 4) a:hover::after {
     background-color: #1f1b1b;
 }
 
+.filter-form fieldset {
+    border: none;
+}
+
 
 .filter-form h1 {
-    margin: 30px 10px 20px 10px;
+    margin: 30px 10px 0 10px;
     font-size: 1.4rem;
     color: #dc976c;
     text-decoration: underline;
@@ -729,9 +718,11 @@ nav .links li:nth-child(-n + 4) a:hover::after {
     align-items: center;
     position: relative;
     padding: 1px;
+    margin: 2px 0 2px 0;
     border: 1px solid;
     border-radius: 5px;
 }
+
 
 .recherche input[type="search"] {
     border: none;
@@ -743,7 +734,6 @@ nav .links li:nth-child(-n + 4) a:hover::after {
     font-size: 0.975rem;
     border: 1px solid transparent;
 }
-
 
 input[type="search"]::placeholder {
     color: #bbb;

@@ -13,28 +13,31 @@ $resultCategorie=$stmt->fetchall(PDO::FETCH_ASSOC);
     <form class="filter-form" action="">
         <h1>Recherche avancé</h1>
         <div class="filter-prix filter">
-            <h2>Prix de l'évènement</h2>
-
-            <div>
-                <label for="4">
-                    <input type="radio" id="4" name="prix"> Moins de 4€
-                </label>
-            </div>
-            <div>
-                <label for="6">
-                    <input type="radio" id="6" name="prix"> Moins de 6€
-                </label>
-            </div>
-            <div>
-                <label for="8">
-                    <input type="radio" id="8" name="prix"> Moins de 8€
-                </label>
-            </div>
-            <div>
-                <label for="11">
-                    <input type="radio" id="11" name="prix"> Moins de 11€
-                </label>
-            </div>
+            <fieldset>
+                <legend>
+                    <h2>Prix de l'évènement</h2>
+                </legend>
+                <div>
+                    <label for="3€">
+                        <input type="radio" id="3€" value="3" name="prix"> Moins de 3€
+                    </label>
+                </div>
+                <div>
+                    <label for="6€">
+                        <input type="radio" id="6€" value="6" name="prix"> Moins de 6€
+                    </label>
+                </div>
+                <div>
+                    <label for="8€">
+                        <input type="radio" id="8€" value="8" name="prix"> Moins de 8€
+                    </label>
+                </div>
+                <div>
+                    <label for="11€">
+                        <input type="radio" id="11€" value="11" name="prix"> Moins de 11€
+                    </label>
+                </div>
+            </fieldset>
         </div>
 
         <div class="filter-date filter">
@@ -52,19 +55,26 @@ $resultCategorie=$stmt->fetchall(PDO::FETCH_ASSOC);
             </label>
         </div>
         <div class="filter-categorie filter">
-            <h2>Choix de la ou des catégories</h2>
-            <div class="checkbox">
-                <?php foreach ($resultCategorie as $row) { ?>
-                <label for="<?php echo $row["ID_Categorie"]?>"><?php echo $row["Nom_categorie"]?>
-                    <input type="checkbox" name="Categorie" id="<?php echo $row["ID_Categorie"]?>">
-                </label><?php }?>
-            </div>
+            <fieldset>
+                <legend>
+                    <h2>Choix de la ou des catégories</h2>
+                </legend>
+                <div class="checkbox">
+                    <?php foreach ($resultCategorie as $row) { ?>
+                    <label for="<?php echo $row["ID_Categorie"]?>"><?php echo $row["Nom_categorie"]?>
+                        <input type="checkbox" name="Categorie" id="<?php echo $row["ID_Categorie"]?>">
+                    </label><?php }?>
+                </div>
+            </fieldset>
         </div>
         <input type="submit" value="Rechercher">
     </form>
     <div class="test">
+        <label for="recherche-input">
+            <h1>Rechercher un évènement :</h1>
+        </label>
         <form class="recherche">
-            <input type="search" placeholder="Rechercher un évènement...">
+            <input type="search" id="recherche-input" placeholder="ex : Monopoly, La Bonne Paye, Cluedo...">
             <button type="submit"><img src="Images/search-icon.svg" alt=""></button>
         </form>
         <div class="tri">
