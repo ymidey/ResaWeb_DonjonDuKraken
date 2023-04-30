@@ -1,9 +1,49 @@
 <?php
 include ("header.php");
-$requeteEvenement = "SELECT * FROM sae203_jeux, sae203_evenements WHERE sae203_jeux.ID_Jeu = sae203_evenements.ID_Jeu";
+
+$requeteEvenement = "SELECT * FROM sae203_jeux, sae203_evenements, sae203_lien_jeuxcategories, sae203_categories 
+WHERE sae203_jeux.ID_Jeu = sae203_evenements.ID_Jeu 
+AND sae203_evenements.Date_Evenement >= CURDATE() 
+AND sae203_jeux.ID_Jeu = sae203_lien_jeuxcategories.ID_Jeu 
+AND sae203_lien_jeuxcategories.ID_Categorie = sae203_categories.ID_Categorie";
+
+if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+    // récupérer les valeurs du formulaire
+
+    // créer la requête de filtrage en fonction des valeurs du formulaire
+    if (isset($_GET['date-evenement']) && !empty($_GET['date-evenement'])) {
+        $date = $_GET['date-evenement'];
+        $requeteEvenement .= " AND sae203_evenements.Date_Evenement = '$date'";
+    }
+    if (isset($_GET['participant-evenement']) && !empty($_GET['participant-evenement'])) {
+        $participant = $_GET['participant-evenement'];
+        $requeteEvenement .= " AND sae203_evenements.Nb_Place >= $participant";
+    }
+    if (isset($_GET['prix']) && !empty($_GET['prix'])) {
+    $prix = $_GET['prix'];
+        $requeteEvenement .= " AND sae203_evenements.Prix_evenement < '$prix'";
+    }
+
+    if (isset($_GET['categorie']) && !empty($_GET['categorie'])) {
+        $categories = $_GET['categorie'];
+        $requeteEvenement .= " AND (";
+        foreach ($categories as $categorie) {
+            $requeteEvenement .= "sae203_categories.ID_Categorie = $categorie OR ";
+        }
+        $requeteEvenement = rtrim($requeteEvenement, " OR ");
+        $requeteEvenement .= ")";
+    }
+
+}
+
+$requeteEvenement .= " GROUP BY sae203_evenements.ID_Evenement ORDER BY sae203_evenements.Date_Evenement";
+echo '<script>';
+   echo 'console.log('. json_encode($requeteEvenement, JSON_HEX_TAG) .')';
+   echo '</script>';
+// exécuter la requête de filtrage
 $stmt=$db->query($requeteEvenement);
 $resultEvenement=$stmt->fetchall(PDO::FETCH_ASSOC);
-
+    
 $requeteCategorie = "SELECT * FROM sae203_categories";
 $stmt=$db->query($requeteCategorie);
 $resultCategorie=$stmt->fetchall(PDO::FETCH_ASSOC);
@@ -62,7 +102,8 @@ $resultCategorie=$stmt->fetchall(PDO::FETCH_ASSOC);
                 <div class="checkbox">
                     <?php foreach ($resultCategorie as $row) { ?>
                     <label for="<?php echo $row["ID_Categorie"]?>"><?php echo $row["Nom_categorie"]?>
-                        <input type="checkbox" name="Categorie" id="<?php echo $row["ID_Categorie"]?>">
+                        <input type="checkbox" name="categorie[]" id="<?php echo $row["ID_Categorie"]?>"
+                            value="<?php echo $row["ID_Categorie"]?>">
                     </label><?php }?>
                 </div>
             </fieldset>
@@ -94,15 +135,21 @@ $resultCategorie=$stmt->fetchall(PDO::FETCH_ASSOC);
                     </div>
                     <div class="card-content">
                         <p class="card-content_date">
-                            <?php $date_evenement = new DateTime($row["Date_Evenement"]);
-                                echo $date_evenement->format("j F Y, H:i");?>
+                            <?php 
+                            // Merci à Julp du forum OpenClassRoom pour avoir donné un code qui fonctionne 
+                            $datefmt = new IntlDateFormatter('fr_FR', NULL, NULL, NULL, NULL, 'dd MMMM yyyy');
+                            $date_evenement = date_create($row['Date_Evenement']);
+                            echo $datefmt->format($date_evenement);?>
+                            à
+                            <?php $heure = new DateTimeImmutable($row['Heure_Evenement']);
+                            echo $heure->format('H\hi');?>
                         </p>
                         <h1 class="card-content_title"><?php echo $row["Titre"]?>
                         </h1>
                         <p class="card-content_desc"><?php echo $row["Description"]?></p>
                         <div class="flex-row">
                             <div class="card-content_price">
-                                <p><?php echo $row["Prix"]?>€ / pers.</p>
+                                <p><?php echo $row["Prix_Evenement"]?>€ / pers.</p>
                             </div>
                             <div class="card-content_seats">
                                 <p><?php echo $row["Nb_Place"]?> places restantes</p>

@@ -4,7 +4,7 @@ $requeteCategorie = "SELECT * FROM sae203_categories";
 $stmt=$db->query($requeteCategorie);
 $resultCategorie=$stmt->fetchall(PDO::FETCH_ASSOC);
 
-$requeteProchainEvenement = "SELECT * FROM sae203_jeux, sae203_evenements WHERE sae203_jeux.ID_Jeu = sae203_evenements.ID_Jeu ORDER BY Date_Evenement ASC LIMIT 7";
+$requeteProchainEvenement = "SELECT * FROM sae203_jeux, sae203_evenements WHERE sae203_jeux.ID_Jeu = sae203_evenements.ID_Jeu AND sae203_evenements.Date_Evenement >= CURDATE() ORDER BY Date_Evenement ASC LIMIT 7";
 $stmt=$db->query($requeteProchainEvenement);
 $resultProchainEvenement=$stmt->fetchall(PDO::FETCH_ASSOC);
 
@@ -19,7 +19,7 @@ $resultNouveauEvenement=$stmt->fetchall(PDO::FETCH_ASSOC);
         <div class="hero-text">
             <h1>Le Donjon du Kraken</h1>
             <p>Jeu d'ambiance, Escape game, jeu de stratégie, jeu de rôle.<br>
-                Reservez vos places pour jouer à nos nombreux évènements jeux de sociétés
+                Reservez vos places pour jouer à nos nombreux évènements jeux de sociétés.
             </p>
             <a href="#form_reservation" class="btn-reservation">Reservez maintenant</a>
         </div>
@@ -79,15 +79,21 @@ $resultNouveauEvenement=$stmt->fetchall(PDO::FETCH_ASSOC);
                     </div>
                     <div class="card-content">
                         <p class="card-content_date">
-                            <?php  $date_evenement = new DateTime($row["Date_Evenement"]);
-                                echo $date_evenement->format("j F Y, H:i");?>
+                            <?php 
+                            // Merci à Julp du forum OpenClassRoom pour avoir donné un code qui fonctionne 
+                            $datefmt = new IntlDateFormatter('fr_FR', NULL, NULL, NULL, NULL, 'dd MMMM yyyy');
+                            $date_evenement = date_create($row['Date_Evenement']);
+                            echo $datefmt->format($date_evenement);?>
+                            à
+                            <?php $heure = new DateTimeImmutable($row['Heure_Evenement']);
+                            echo $heure->format('H\hi');?>
                         </p>
                         <h1 class="card-content_title"><?php echo $row["Titre"]?>
                         </h1>
                         <p class="card-content_desc"><?php echo $row["Description"]?></p>
                         <div class="flex-row">
                             <div class="card-content_price">
-                                <p><?php echo $row["Prix"]?>€ / pers.</p>
+                                <p><?php echo $row["Prix_Evenement"]?>€ / pers.</p>
                             </div>
                             <div class="card-content_seats">
                                 <p><?php echo $row["Nb_Place"]?> places restantes</p>
@@ -121,15 +127,21 @@ $resultNouveauEvenement=$stmt->fetchall(PDO::FETCH_ASSOC);
                     </div>
                     <div class="card-content">
                         <p class="card-content_date">
-                            <?php  $date_evenement = new DateTime($row["Date_Evenement"]);
-                                echo $date_evenement->format("j F Y, H:i");?>
+                            <?php 
+                            // Merci à Julp du forum OpenClassRoom pour avoir donné un code qui fonctionne 
+                            $datefmt = new IntlDateFormatter('fr_FR', NULL, NULL, NULL, NULL, 'dd MMMM yyyy');
+                            $date_evenement = date_create($row['Date_Evenement']);
+                            echo $datefmt->format($date_evenement);?>
+                            à
+                            <?php $heure = new DateTimeImmutable($row['Heure_Evenement']);
+                            echo $heure->format('H\hi');?>
                         </p>
                         <h1 class="card-content_title"><?php echo $row["Titre"]?>
                         </h1>
                         <p class="card-content_desc"><?php echo $row["Description"]?></p>
                         <div class="flex-row">
                             <div class="card-content_price">
-                                <p><?php echo $row["Prix"]?>€ / pers.</p>
+                                <p><?php echo $row["Prix_Evenement"]?>€ / pers.</p>
                             </div>
                             <div class="card-content_seats">
                                 <p><?php echo $row["Nb_Place"]?> places restantes</p>
