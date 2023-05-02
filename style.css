@@ -290,6 +290,11 @@ nav .links li:nth-child(-n + 3) a:hover::after {
     transition: .2s ease-in;
 }
 
+.card-content_categorie {
+    color: #dc976c;
+    font-size: 0.9rem;
+}
+
 .card-content_title {
     font-size: 1.375rem;
     color: #fff;
@@ -334,7 +339,7 @@ nav .links li:nth-child(-n + 3) a:hover::after {
     position: relative;
     align-items: center;
     justify-content: center;
-    padding-bottom: 30px;
+    padding-bottom: 15px;
 }
 
 .card-container .card-container_images img {
@@ -489,10 +494,11 @@ nav .links li:nth-child(-n + 3) a:hover::after {
 .footer {
     display: flex;
     flex-flow: row wrap;
-    padding: 30px 30px 25px 120px;
+    padding: 30px 30px 25px 100px;
     background-color: #131111;
     border-top: 1px solid #1f1b1b;
     color: #fff;
+    margin-top: 200px;
 }
 
 .footer>* {
@@ -648,11 +654,9 @@ nav .links li:nth-child(-n + 3) a:hover::after {
 .nos-evenements {
     position: relative;
     display: flex;
-    width: 100%;
     gap: 5px;
     top: 12vh;
     color: white;
-    margin-bottom: 400px;
 }
 
 .test {
