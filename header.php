@@ -1,5 +1,9 @@
 <?php
-include ("connexion.php");
+include("connexion.php");
+
+$requeteCategorie = "SELECT * FROM sae203_categories";
+$stmt = $db->query($requeteCategorie);
+$resultCategorie = $stmt->fetchall(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -25,7 +29,7 @@ include ("connexion.php");
             </div>
             <ul class="links">
                 <li><a href="accueil.php">Accueil</a></li>
-                <li><a href="nos-evenements.php">Nos évènements</a></li>
+                <li><a href="nos-evenements.php?tri=date-croissant">Nos évènements</a></li>
                 <li><a href="a-propos.php">À propos</a></li>
                 <li><a href="#" class="btn-panier">Mon panier</a></li>
             </ul>

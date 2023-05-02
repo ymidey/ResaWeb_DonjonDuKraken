@@ -1,6 +1,9 @@
 <?php
 include("header.php");
 
+// Récupérer les paramètres de la requête url actuelle
+$current_params = $_GET;
+
 $requeteEvenement = "SELECT * FROM sae203_jeux, sae203_evenements, sae203_lien_jeuxcategories, sae203_categories 
 WHERE sae203_jeux.ID_Jeu = sae203_evenements.ID_Jeu 
 AND sae203_evenements.Date_Evenement >= CURDATE() 
@@ -36,7 +39,21 @@ if (isset($_GET['recherche']) && !empty($_GET['recherche'])) {
     $requeteEvenement .= " AND sae203_evenements.Titre LIKE '%$recherche%'";
 }
 
-$requeteEvenement .= " GROUP BY sae203_evenements.ID_Evenement ORDER BY sae203_evenements.Date_Evenement";
+$requeteEvenement .= " GROUP BY sae203_evenements.ID_Evenement ";
+
+if ($_GET['tri'] == "date-croissant") {
+    $requeteEvenement .= "ORDER BY sae203_evenements.Date_Evenement ASC";
+}
+
+if ($_GET['tri'] == "date-decroissant") {
+    $requeteEvenement .= "ORDER BY sae203_evenements.Date_Evenement DESC";
+}
+if ($_GET['tri'] == "prix-croissant") {
+    $requeteEvenement .= "ORDER BY sae203_evenements.Prix_Evenement ASC";
+}
+if ($_GET['tri'] == "prix-decroissant") {
+    $requeteEvenement .= "ORDER BY sae203_evenements.Prix_Evenement DESC";
+}
 echo '<script>';
 echo 'console.log(' . json_encode($requeteEvenement, JSON_HEX_TAG) . ')';
 echo '</script>';
@@ -44,13 +61,11 @@ echo '</script>';
 $stmt = $db->query($requeteEvenement);
 $resultEvenement = $stmt->fetchall(PDO::FETCH_ASSOC);
 
-$requeteCategorie = "SELECT * FROM sae203_categories";
-$stmt = $db->query($requeteCategorie);
-$resultCategorie = $stmt->fetchall(PDO::FETCH_ASSOC);
 ?>
 
 <div class="nos-evenements">
     <form class="filter-form" action="">
+        <input type="hidden" name="tri" value="<?php echo $_GET["tri"] ?>">
         <h1>Recherche avancé</h1>
         <div class="filter-prix filter">
             <fieldset>
@@ -119,13 +134,20 @@ $resultCategorie = $stmt->fetchall(PDO::FETCH_ASSOC);
             <input type="search" id="recherche-input" name="recherche" placeholder="ex : Monopoly, La Bonne Paye, Cluedo..." value="<?php echo isset($_GET['recherche']) ? $_GET['recherche'] : '' ?>" />
             <button type="submit"><img src="Images/search-icon.svg" alt="valider la recherche"></button>
         </form>
-        <div class="tri">
-            <span>Trier par :</span>
-            <a href="#" data-tri="Date-croissant">Date croissante</a>
-            <a href="#" data-tri="Date-decroissant">Date décroissante</a>
-            <a href="#" data-tri="Prix-croissant">Prix croissant</a>
-            <a href="#" data-tri="Prix-decroissant">Prix décroissant</a>
-            <a href="#" data-tri="Date-Ajout">Date d'ajout</a>
+        <div class="dropdown">
+            <label for="tri">
+                <input class="text-box" type="text" id="tri" placeholder="Tri par : <?php echo $_GET['tri'] ?>" readonly>
+                <div class="options">
+                    <div><a href="nos-evenements.php?<?php echo http_build_query(array_merge($current_params, array('tri' => 'date-croissant'))); ?>">Par
+                            date croissante</a></div>
+                    <div><a href="nos-evenements.php?<?php echo http_build_query(array_merge($current_params, array('tri' => 'date-decroissant'))); ?>">Par
+                            date décroissante</a></div>
+                    <div><a href="nos-evenements.php?<?php echo http_build_query(array_merge($current_params, array('tri' => 'prix-croissant'))); ?>">Par
+                            prix croissant</a></div>
+                    <div><a href="nos-evenements.php?<?php echo http_build_query(array_merge($current_params, array('tri' => 'prix-decroissant'))); ?>">Par
+                            prix décroissant</a></div>
+                </div>
+            </label>
         </div>
         <div class="card-evenement">
             <?php foreach ($resultEvenement as $row) { ?>
@@ -168,7 +190,6 @@ $resultCategorie = $stmt->fetchall(PDO::FETCH_ASSOC);
 
     </div>
 </div>
-
 
 <?php
 include("footer.php");

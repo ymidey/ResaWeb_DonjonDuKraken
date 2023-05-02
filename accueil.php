@@ -157,8 +157,8 @@ $resultNouveauEvenement = $stmt->fetchall(PDO::FETCH_ASSOC);
     </section>
 
     <!-- Section à propos -->
-    <section class="a-propos">
-        <h1 class="title">À propos</h1>
+    <section class="concept">
+        <h1 class="title">Le concept</h1>
         <div class="img-desc">
             <div class="left">
                 <img src="Images/Logo_DonjonKraken.svg" alt=""></video>
@@ -166,8 +166,7 @@ $resultNouveauEvenement = $stmt->fetchall(PDO::FETCH_ASSOC);
 
             <div class="right">
                 <h2>Le Donjon du Kraken c'est quoi ?</h2>
-                <p>Le Donjon du Kraken c'est votre plateforme de réservation d'évènements amical et
-                    de tournois autour des jeux de sociétés.
+                <p>Le Donjon du Kraken c'est votre plateforme de réservation d'évènements autour des jeux de sociétés.
                     <br><br>
                     N'avez vous jamais eu envie de jouer à des jeux de société mais vous n'étiez pas assez de joueur
                     pour y jouer ? Vous souhaitez jouez à des jeux de société dit "haut de gamme" mais sans dépenser
@@ -176,9 +175,9 @@ $resultNouveauEvenement = $stmt->fetchall(PDO::FETCH_ASSOC);
                     moments autour des jeux de sociétés ? Vous êtes à la recherche d'activité ludique et amusante à
                     faire pour vos enfants ?<br>
                     Reservez dès maintenant vos places pour l'un des nombreux évènements que propose Le donjon du
-                    Kraken
+                    Kraken !
                 </p>
-                <a href="#">En savoir plus</a>
+                <a href="a-propos.php#pourquoi">En savoir plus</a>
             </div>
         </div>
     </section>

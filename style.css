@@ -375,47 +375,47 @@ nav .links li:nth-child(-n + 3) a:hover::after {
 }
 
 
-/* Section à propos CSS */
-.a-propos {
+/* Section concept CSS */
+.concept {
     margin-top: 100px;
     margin-bottom: 50px;
     width: 100%;
 }
 
-.a-propos .img-desc {
+.concept .img-desc {
     display: flex;
     align-items: center;
     justify-content: space-between;
     width: 90%;
 }
 
-.a-propos .img-desc .right {
+.concept .img-desc .right {
     width: 60%;
 }
 
-.a-propos .img-desc .right h2 {
+.concept .img-desc .right h2 {
     color: #dc976c;
     padding-bottom: 15px;
 }
 
-.a-propos .img-desc .right p {
+.concept .img-desc .right p {
     color: #fff;
     padding-bottom: 25px;
 }
 
-.a-propos .img-desc .left {
+.concept .img-desc .left {
     position: relative;
     margin-left: 10px;
     width: 26%;
 }
 
-.a-propos .img-desc .left img {
+.concept .img-desc .left img {
     width: 100%;
     height: 100%;
     position: relative;
 }
 
-.a-propos .img-desc .right a {
+.concept .img-desc .right a {
     border: 1px solid #c1784a;
     color: #fff;
     text-decoration: none;
@@ -424,7 +424,7 @@ nav .links li:nth-child(-n + 3) a:hover::after {
     font-weight: bold;
 }
 
-.a-propos .img-desc .right a:hover {
+.concept .img-desc .right a:hover {
     background-color: #c1784a;
 }
 
@@ -617,29 +617,29 @@ nav .links li:nth-child(-n + 3) a:hover::after {
 }
 
 /* a-propos.php page css */
-.apropos {
+.a-propos {
     position: relative;
     top: 10vh;
     color: white;
 }
 
-.apropos h1 {
+.a-propos h1 {
     text-align: center;
 }
 
-.apropos section {
+.a-propos section {
     display: block;
     background-color: #212020;
     margin: 2% 5% 2% 5%;
     padding: 2%;
 }
 
-.apropos section h2 {
+.a-propos section h2 {
     color: #dc976c;
     padding: 1% 0 1% 0;
 }
 
-.apropos .mentionslegales h3 {
+.a-propos .mentionslegales h3 {
     padding-top: 7px;
     padding-bottom: 2px;
 }
@@ -759,25 +759,82 @@ button[type="submit"]:hover {
 
 .card-evenement {
     display: grid;
+    position: relative;
     grid-template-columns: auto auto auto auto auto;
     grid-template-rows: auto;
     gap: 10px;
+    top: 60px;
 }
 
-.tri {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
+
+.dropdown {
+    position: relative;
+    z-index: 1000;
+    margin-top: 15px;
+    width: 320px;
+    height: 40px;
 }
 
-.tri span {
-    margin-right: 10px;
+.dropdown::before {
+    content: "";
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    z-index: 1000;
+    width: 8px;
+    height: 8px;
+    border: 2px solid #333;
+    border-top: 2px solid #fff;
+    border-right: 2px solid #fff;
+    transform: rotate(-45deg);
+    transition: 0.5s;
+    pointer-events: none;
 }
 
-.tri a {
-    padding: 5px;
-    margin-right: 10px;
-    color: blue;
-    text-decoration: none;
+.dropdown.active::before {
+    top: 18px;
+    transform: rotate(-225deg);
+}
+
+.dropdown input {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #fff;
     cursor: pointer;
+    font-size: 1rem;
+    border: none;
+    outline: none;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+    padding: 12px 20px;
+    border-radius: 5px;
+}
+
+.dropdown .options {
+    position: absolute;
+    width: 100%;
+    font-size: 0.8rem;
+    top: 35px;
+    color: #000;
+    background: #fff;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    display: none;
+    border-radius: 0 0 5px 5px;
+}
+
+.dropdown.active .options {
+    display: block;
+}
+
+.dropdown .options div {
+    padding: 12px 20px;
+    cursor: pointer;
+}
+
+.dropdown .options div:hover {
+    background: #62baea;
+    color: #fff;
 }

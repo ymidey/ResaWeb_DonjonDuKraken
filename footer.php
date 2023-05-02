@@ -13,10 +13,10 @@
             <h2 class="nav_title">Nos évènements</h2>
             <ul class="nav_ul">
                 <li>
-                    <a href="#">Prochains évènements</a>
+                    <a href="nos-evenements.php?tri=date-croissant">Prochains évènements</a>
                 </li>
                 <li>
-                    <a href="#">Nouveaux évènements</a>
+                    <a href="nos-evenements.php?tri=nouveau">Nouveaux évènements</a>
                 </li>
             </ul>
         </li>
@@ -25,26 +25,12 @@
             <h2 class="nav_title">Catégories d'évènements</h2>
 
             <ul class="nav_ul nav_ul--extra">
+                <?php foreach ($resultCategorie as $row) { ?>
                 <li>
-                    <a href="#">Jeux d'ambiance</a>
+                    <a
+                        href="nos-evenements.php?categorie[]=<?php echo $row["ID_Categorie"] ?>"><?php echo $row["Nom_categorie"] ?></a>
                 </li>
-
-                <li>
-                    <a href="#">EscapeGame</a>
-                </li>
-
-                <li>
-                    <a href="#">Stratégie</a>
-                </li>
-
-                <li>
-                    <a href="#">Jeux de cartes</a>
-                </li>
-
-                <li>
-                    <a href="#">Jeux de rôle</a>
-                </li>
-
+                <?php } ?>
             </ul>
         </li>
         <li class="nav_item">
@@ -73,6 +59,7 @@
 
 
 </body>
-<script src="script.js"></script>
+<script src="js/script.js"></script>
+<script src="js/scriptevenementpage.js"></script>
 
 </html>

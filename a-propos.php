@@ -1,7 +1,7 @@
-<?php 
-include ("header.php");
+<?php
+include("header.php");
 ?>
-<div class="apropos">
+<div class="a-propos">
     <h1>À propos</h1>
 
     <section class="createur" id="createur">
@@ -13,9 +13,10 @@ include ("header.php");
             <br>
     </section>
 
-    <section class="concept" id="concept">
+    <section class="pourquoi" id="pourquoi">
         <h2>Pourquoi ce type de plateforme ?</h2>
-        J'ai fait le choix de créer une plateforme de réservation d'événement de jeux de société car j'ai dévéloppé
+        J'ai fait le choix de créer une plateforme fictive de réservation d'événement de jeux de société car j'ai
+        dévéloppé
         un atrait particulier pour les jeux de société lors du confinement, notamment pour les escapes-games. Cependant,
         dans cette
         récente passion, je me suis apperçu de deux principaux probèmes, le prix des jeux de sociétés et un nombre
@@ -72,4 +73,4 @@ include ("header.php");
         </p>
     </section>
 </div>
-<?php include ("footer.php");?>
+<?php include("footer.php"); ?>
