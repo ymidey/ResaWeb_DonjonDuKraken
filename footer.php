@@ -16,7 +16,7 @@
                     <a href="nos-evenements.php?tri=date-croissant">Prochains évènements</a>
                 </li>
                 <li>
-                    <a href="nos-evenements.php?tri=nouveau">Nouveaux évènements</a>
+                    <a href="nos-evenements.php?tri=nouveauté">Nouveaux évènements</a>
                 </li>
             </ul>
         </li>
@@ -26,10 +26,9 @@
 
             <ul class="nav_ul nav_ul--extra">
                 <?php foreach ($resultCategorie as $row) { ?>
-                <li>
-                    <a
-                        href="nos-evenements.php?categorie[]=<?php echo $row["ID_Categorie"] ?>"><?php echo $row["Nom_categorie"] ?></a>
-                </li>
+                    <li>
+                        <a href="nos-evenements.php?categorie[]=<?php echo $row["ID_Categorie"] ?>"><?php echo $row["Nom_categorie"] ?></a>
+                    </li>
                 <?php } ?>
             </ul>
         </li>

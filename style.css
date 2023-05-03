@@ -7,6 +7,31 @@ a {
     text-decoration: none;
 }
 
+/* Skip link */
+.skip-link {
+    position: absolute;
+    color: #fff;
+    text-decoration: none;
+    border: 2px;
+    top: 100px;
+}
+
+.skip-link:not(:focus-visible):not(:active) {
+    border: 0;
+    clip: rect(0 0 0 0);
+    -webkit-clip-path: inset(100%);
+    clip-path: inset(100%);
+    height: 1px;
+    overflow: hidden;
+    padding: 0;
+    white-space: nowrap;
+    width: 1px;
+}
+
+.skip-link:focus {
+    z-index: 999;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -34,7 +59,7 @@ section {
 }
 
 .title {
-    margin: 60px 0;
+    margin: 40px 0;
     font-weight: bold;
     color: #dc976c;
     position: relative;
@@ -50,34 +75,12 @@ section {
     width: 5px;
 }
 
-/* Skip link */
-.skip-link {
-    position: absolute;
-    color: #fff;
-    text-decoration: none;
-    border: 2px;
-    top: 100px;
-}
-
-.skip-link:not(:focus-visible):not(:active) {
-    border: 0;
-    clip: rect(0 0 0 0);
-    -webkit-clip-path: inset(100%);
-    clip-path: inset(100%);
-    height: 1px;
-    overflow: hidden;
-    padding: 0;
-    white-space: nowrap;
-    width: 1px;
-}
-
-.skip-link:focus {
-    z-index: 999;
-}
 
 /* NavBar */
 nav {
     position: fixed;
+    -webkit-backdrop-filter: blur(1px);
+    backdrop-filter: blur(1px);
     width: 100%;
     padding: 10px 3%;
     background-color: transparent;
@@ -189,6 +192,7 @@ nav .links li:nth-child(-n + 3) a:hover::after {
     border-radius: 2%;
     position: absolute;
     bottom: -70px;
+    scroll-margin-top: 200px;
 }
 
 .hero .hero-form form {
@@ -247,15 +251,48 @@ nav .links li:nth-child(-n + 3) a:hover::after {
 /* Section prochains évènements CSS */
 .prochains-evenements {
     margin-top: 100px;
-    margin-bottom: 50px;
+    margin-bottom: 25px;
     width: 100%;
 }
 
 /* Section Nouveaux évènement CSS */
 .nouveaux-evenements {
     margin-top: 100px;
-    margin-bottom: 50px;
+    margin-bottom: 25px;
     width: 100%;
+}
+
+/* Bouton slider section Nouveaux et prochains evenements */
+.btn-container {
+    display: flex;
+    gap: 16px;
+}
+
+.btn-slide {
+    width: 58px;
+    height: 58px;
+    border-radius: 100%;
+    background-color: #131111;
+    border: solid 1px;
+}
+
+.btn-slide:hover {
+    background-color: #1f1b1b;
+}
+
+.btn-left {
+    transform: scale(-1);
+}
+
+.link-see-all {
+    display: block;
+    color: #d8d7d7;
+    text-align: right;
+    font-size: 1.1rem;
+}
+
+.link-see-all:hover {
+    color: #fff;
 }
 
 /* Card section prochains et nouveaux evenements */
@@ -279,9 +316,10 @@ nav .links li:nth-child(-n + 3) a:hover::after {
 
 .card-container {
     max-width: 300px;
+    position: relative;
     background-color: #131111;
     border-radius: 15px;
-    padding: 2rem 2rem 1rem 2rem;
+    padding: 2rem 2rem 7rem 2rem;
     color: #d7d3d3;
 }
 
@@ -300,7 +338,13 @@ nav .links li:nth-child(-n + 3) a:hover::after {
     color: #fff;
 }
 
-.card-container .card-content .flex-row, .card-container .card-content .card-link {
+.card-content_otherinfo {
+    bottom: 25px;
+    width: 80%;
+    position: absolute;
+}
+
+.card-container .card-content_otherinfo .flex-row, .card-container .card-content_otherinfo .card-link {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -315,7 +359,7 @@ nav .links li:nth-child(-n + 3) a:hover::after {
     color: #c1784a;
 }
 
-.card-container .card-content .card-link button {
+.card-container .card-content_otherinfo .card-link button {
     border: #c1784a solid 1px;
     border-radius: 5%;
     color: #fff;
@@ -323,11 +367,11 @@ nav .links li:nth-child(-n + 3) a:hover::after {
     background-color: transparent;
 }
 
-.card-container .card-content .card-link button:hover {
+.card-container .card-content_otherinfo .card-link button:hover {
     background-color: rgba(140, 136, 136, 0.4);
 }
 
-.card-container .card-content .card-link .ajout-panier {
+.card-container .card-content_otherinfo .card-link .ajout-panier {
     filter: invert(1);
     width: 30%;
     padding-left: 5px;
@@ -356,29 +400,6 @@ nav .links li:nth-child(-n + 3) a:hover::after {
     font-size: 14px;
     font-weight: bold;
 }
-
-/* Bouton slider section Nouveaux et prochains evenements */
-.btn-container {
-    display: flex;
-    gap: 16px;
-}
-
-.btn-slide {
-    width: 62px;
-    height: 62px;
-    border-radius: 100%;
-    background-color: #131111;
-    border: solid 1px;
-}
-
-.btn-slide:hover {
-    background-color: #1f1b1b;
-}
-
-.btn-left {
-    transform: scale(-1);
-}
-
 
 /* Section concept CSS */
 .concept {
@@ -475,7 +496,6 @@ nav .links li:nth-child(-n + 3) a:hover::after {
     width: 100%;
     text-align: center;
     align-items: center;
-
 }
 
 .categorie-evenement .cart .content h2 {
@@ -570,7 +590,6 @@ nav .links li:nth-child(-n + 3) a:hover::after {
 .footer li a:hover::after {
     transform: translateY(0);
     opacity: 1;
-
 }
 
 .footer li {
@@ -590,7 +609,6 @@ nav .links li:nth-child(-n + 3) a:hover::after {
     flex: 1 50%;
     margin-right: 1.25em;
 }
-
 
 .footer .legal {
     display: flex;
@@ -762,10 +780,9 @@ button[type="submit"]:hover {
 }
 
 .card-evenement {
-    display: grid;
+    display: flex;
     position: relative;
-    grid-template-columns: auto auto auto auto auto;
-    grid-template-rows: auto;
+    flex-wrap: wrap;
     gap: 10px;
     top: 60px;
 }
