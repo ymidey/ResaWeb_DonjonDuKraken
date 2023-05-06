@@ -26,9 +26,10 @@
 
             <ul class="nav_ul nav_ul--extra">
                 <?php foreach ($resultCategorie as $row) { ?>
-                    <li>
-                        <a href="nos-evenements.php?categorie[]=<?php echo $row["ID_Categorie"] ?>"><?php echo $row["Nom_categorie"] ?></a>
-                    </li>
+                <li>
+                    <a
+                        href="nos-evenements.php?categorie[]=<?php echo $row["ID_Categorie"] ?>"><?php echo $row["Nom_categorie"] ?></a>
+                </li>
                 <?php } ?>
             </ul>
         </li>
@@ -41,7 +42,7 @@
                 </li>
 
                 <li>
-                    <a href="a-propos.php#concept">Le concept</a>
+                    <a href="a-propos.php#pourquoi">Le concept</a>
                 </li>
                 <li>
                     <a href="a-propos.php#mentionslegales">Mentions légals</a>

@@ -42,6 +42,7 @@ a {
 
 body {
     height: 100vh;
+    color: white;
     width: 100%;
     background-color: black;
 }
@@ -50,36 +51,9 @@ section {
     padding: 0 8%;
 }
 
-/* Style de la div head de chaque section */
-.head {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: #c1784a
-}
-
-.title {
-    margin: 40px 0;
-    font-weight: bold;
-    color: #dc976c;
-    position: relative;
-    margin-left: 15px;
-}
-
-.title::after {
-    position: absolute;
-    left: -15px;
-    content: "";
-    height: 100%;
-    background-color: #fff;
-    width: 5px;
-}
-
-
 /* NavBar */
 nav {
     position: fixed;
-    -webkit-backdrop-filter: blur(1px);
     backdrop-filter: blur(1px);
     width: 100%;
     padding: 10px 3%;
@@ -154,6 +128,15 @@ nav .links li:nth-child(-n + 3) a:hover::after {
 .btn-reservation:hover {
     background-color: #c1784a;
 }
+
+@media (max-width:800px) {
+    nav {
+        height: fit-content;
+        flex-direction: column;
+    }
+}
+
+/* accueil.php css */
 
 /* Section Hero CSS */
 .hero {
@@ -247,6 +230,29 @@ nav .links li:nth-child(-n + 3) a:hover::after {
     box-shadow: 0 0 10px #c1784a;
 }
 
+/* Style de la div head de chaque section */
+.head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.title {
+    margin: 40px 0;
+    color: #dc976c;
+    font-weight: bold;
+    position: relative;
+    margin-left: 15px;
+}
+
+.title::after {
+    position: absolute;
+    left: -15px;
+    content: "";
+    height: 100%;
+    background-color: #fff;
+    width: 5px;
+}
 
 /* Section prochains évènements CSS */
 .prochains-evenements {
@@ -656,6 +662,7 @@ nav .links li:nth-child(-n + 3) a:hover::after {
     background-color: #212020;
     margin: 2% 5% 2% 5%;
     padding: 2%;
+    scroll-margin-top: 180px;
 }
 
 .a-propos section h2 {
@@ -674,7 +681,6 @@ nav .links li:nth-child(-n + 3) a:hover::after {
     display: flex;
     gap: 5px;
     top: 12vh;
-    color: white;
 }
 
 .test {
@@ -858,4 +864,63 @@ button[type="submit"]:hover {
 .dropdown .options div:hover {
     background: #62baea;
     color: #fff;
+}
+
+
+/* CSS evenement.php page */
+.evenement {
+    position: relative;
+    display: flex;
+    top: 12vh;
+    justify-content: space-around;
+    border: 2px solid #dc976c5e;
+    border-radius: 10px;
+    column-gap: 1rem;
+    padding: 40px;
+    height: 600px;
+    padding-bottom: 100px;
+    margin-left: 50px;
+    margin-right: 70px;
+}
+
+.evenement .evenement-text {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    max-width: 600px;
+    height: 500px;
+}
+
+.evenement .evenement-text>* {
+    margin-bottom: 10px;
+}
+
+.evenement .evenement-text .evenement-attribut {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.evenement .evenement-text .evenement-attribut p {
+    background-color: #5a5a5a;
+    padding: 10px;
+    border-radius: 10%;
+}
+
+
+.evenement .evenement-text .btnReserve {
+    position: absolute;
+    font-size: 0.875rem;
+    background-color: #c1784a;
+    color: white;
+    padding: 20px 25px 20px 25px;
+    border-radius: 15%;
+    bottom: 0;
+    left: 0;
+}
+
+.evenement .evenement-text .btnReserve:hover {
+    transform: scale(102%);
+    transition: .2s ease-in;
+    cursor: pointer;
 }
