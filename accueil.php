@@ -29,6 +29,7 @@ $stmt = $db->query($requeteNouveauEvenement);
 $resultNouveauEvenement = $stmt->fetchall(PDO::FETCH_ASSOC);
 ?>
 
+
 <main>
     <!-- Hero section -->
     <section class="hero">
@@ -53,8 +54,7 @@ $resultNouveauEvenement = $stmt->fetchall(PDO::FETCH_ASSOC);
                     <label for="nombre participant">
                         Nombres participants
                     </label>
-                    <input type="number" id="nombre participant" name="participant-evenement"
-                        placeholder="Combien de participant ?" />
+                    <input type="number" id="nombre participant" name="participant-evenement" placeholder="Combien de participant ?" />
                 </div>
                 <div>
                     <label for="catégories-évènements">
@@ -62,8 +62,8 @@ $resultNouveauEvenement = $stmt->fetchall(PDO::FETCH_ASSOC);
                     </label>
                     <select id="catégories-évènements" name="type-evenement">
                         <?php foreach ($resultCategorie as $row) { ?>
-                        <option value="ID_Categorie=<?php echo $row["ID_Categorie"] ?>">
-                            <?php echo $row["Nom_categorie"] ?></option>
+                            <option value="ID_Categorie=<?php echo $row["ID_Categorie"] ?>">
+                                <?php echo $row["Nom_categorie"] ?></option>
                         <?php } ?>
 
                     </select>
@@ -75,40 +75,92 @@ $resultNouveauEvenement = $stmt->fetchall(PDO::FETCH_ASSOC);
     <!-- Prochains evenements section -->
     <section class="prochains-evenements">
         <div class="head">
-            <h1 class="title">Nos prochains évènements</h1>
-            <div class="btn-container">
-                <button class="btn-slide btn-left">
-                    <img src="Images/chevron.svg" alt="évènements précédent">
-                </button>
-                <button class="btn-slide btn-right">
-                    <img src="Images/chevron.svg" alt="évènements suivant">
-                </button>
-            </div>
+            <h2 class="title">Nos prochains évènements</h1>
+                <div class="btn-container">
+                    <button type="button" class="btn-slide btn-left">
+                        <img src="Images/chevron.svg" alt="évènements précédent">
+                    </button>
+                    <button type="button" class="btn-slide btn-right">
+                        <img src="Images/chevron.svg" alt="évènements suivant">
+                    </button>
+                </div>
         </div>
         <a href="nos-evenements.php?tri=date-croissant" class="link-see-all">Voir tout</a>
         <div class="card">
             <?php foreach ($resultProchainEvenement as $row) { ?>
-            <div class="card-container">
-                <a href="detail-evenement.php?ID_Evenement=<?php echo $row['ID_Evenement'] ?>">
-                    <div class=" card-container_images">
-                        <img src="Images/Image_jeu/<?php echo $row["Image_Jeu"] ?>.jpg"
-                            alt="<?php echo $row["Nom"] ?>" />
-                    </div>
-                    <div class="card-content">
-                        <p class="card-content_categorie"><?php echo $row['Categories'] ?></p>
-                        <p class="card-content_date">
-                            <?php
-                        // Merci à Julp du forum OpenClassRoom pour avoir donné un code qui fonctionne 
-                        $datefmt = new IntlDateFormatter('fr_FR', NULL, NULL, NULL, NULL,  'dd MMMM yyyy');
-                        $date_evenement = date_create($row['Date_Evenement']);
-                        echo $datefmt->format($date_evenement); ?>
-                            à
-                            <?php $heure = new DateTimeImmutable($row['Heure_Evenement']);
-                        echo $heure->format('H\hi'); ?>
-                        </p>
-                        <h1 class="card-content_title"><?php echo $row["Titre"] ?>
-                        </h1>
-                        <p class="card-content_desc"><?php echo $row["Description"] ?></p>
+                <div class="card-container">
+                    <a href="detail-evenement.php?ID_Evenement=<?php echo $row['ID_Evenement'] ?>">
+                        <div class=" card-container_images">
+                            <img src="Images/Image_jeu/<?php echo $row["Image_Jeu"] ?>.jpg" alt="<?php echo $row["Nom"] ?>" />
+                        </div>
+                        <div class="card-content">
+                            <p class="card-content_categorie"><?php echo $row['Categories'] ?></p>
+                            <p class="card-content_date">
+                                <?php
+                                // Merci à Julp du forum OpenClassRoom pour avoir donné un code qui fonctionne 
+                                $datefmt = new IntlDateFormatter('fr_FR', NULL, NULL, NULL, NULL,  'dd MMMM yyyy');
+                                $date_evenement = date_create($row['Date_Evenement']);
+                                echo $datefmt->format($date_evenement); ?>
+                                à
+                                <?php $heure = new DateTimeImmutable($row['Heure_Evenement']);
+                                echo $heure->format('H\hi'); ?>
+                            </p>
+                            <h3 class="card-content_title"><?php echo $row["Titre"] ?>
+                            </h3>
+                            <p class="card-content_desc"><?php echo $row["Description"] ?></p>
+                            <div class="card-content_otherinfo">
+                                <div class="flex-row">
+                                    <div class="card-content_price">
+                                        <p><?php echo $row["Prix_Evenement"] ?>€ / pers.</p>
+                                    </div>
+                                    <div class="card-content_seats">
+                                        <p><?php echo $row["Nb_Place"] ?> places restantes</p>
+                                    </div>
+                                </div>
+                                <div class="card-link">
+                                    <button type="button">Détails</button>
+                                    <button>Ajouter au panier <img src="Images/ajout-produit-panier.svg" class="ajout-panier" alt=""></button>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            <?php } ?>
+        </div>
+
+    </section>
+
+    <!-- Nouveaux evenements section -->
+    <section class="nouveaux-evenements">
+        <div class="head">
+            <h2 class="title">Nos nouveaux évènements</h2>
+        </div>
+        <a href="nos-evenements.php?tri=nouveaute" class="link-see-all">Voir tout</a>
+        <div class="card">
+            <?php foreach ($resultNouveauEvenement as $row) { ?>
+                <div class="card-container">
+                    <a href=" detail-evenement.php?ID_Evenement=<?php echo $row['ID_Evenement'] ?>">
+                        <div class="card-container_images">
+                            <div class="nouveaute">Nouveauté</div>
+                            <img src="Images/Image_jeu/<?php echo $row["Image_Jeu"] ?>.jpg" alt="<?php echo $row["Nom"] ?>" />
+                        </div>
+                        <div class="card-content">
+                            <p class="card-content_categorie"><?php echo $row['Categories'] ?></p>
+                            <p class="card-content_date">
+                                <?php
+                                // Merci à Julp du forum OpenClassRoom pour avoir donné un code qui fonctionne 
+                                $datefmt = new IntlDateFormatter('fr_FR', NULL, NULL, NULL, NULL,  'dd MMMM yyyy');
+                                $date_evenement = date_create($row['Date_Evenement']);
+                                echo $datefmt->format($date_evenement); ?>
+                                à
+                                <?php $heure = new DateTimeImmutable($row['Heure_Evenement']);
+                                echo $heure->format('H\hi'); ?>
+                            </p>
+                            <h3 class="card-content_title"><?php echo $row["Titre"] ?>
+                            </h3>
+                            <p class="card-content_desc"><?php echo $row["Description"] ?></p>
+
+                        </div>
                         <div class="card-content_otherinfo">
                             <div class="flex-row">
                                 <div class="card-content_price">
@@ -120,80 +172,24 @@ $resultNouveauEvenement = $stmt->fetchall(PDO::FETCH_ASSOC);
                             </div>
                             <div class="card-link">
                                 <button>Détails</button>
-                                <button>Ajouter au panier <img src="Images/ajout-produit-panier.svg"
-                                        class="ajout-panier" alt=""></button>
+                                <button>Ajouter au panier <img src="Images/ajout-produit-panier.svg" class="ajout-panier" alt=""></button>
                             </div>
                         </div>
-                    </div>
-                </a>
-            </div>
-            <?php } ?>
-        </div>
-
-    </section>
-
-    <!-- Nouveaux evenements section -->
-    <section class="nouveaux-evenements">
-        <div class="head">
-            <h1 class="title">Nos nouveaux évènements</h1>
-        </div>
-        <a href="nos-evenements.php?tri=nouveaute" class="link-see-all">Voir tout</a>
-        <div class="card">
-            <?php foreach ($resultNouveauEvenement as $row) { ?>
-            <div class="card-container">
-                <a href=" detail-evenement.php?ID_Evenement=<?php echo $row['ID_Evenement'] ?>">
-                    <div class="card-container_images">
-                        <div class="nouveaute">Nouveauté</div>
-                        <img src="Images/Image_jeu/<?php echo $row["Image_Jeu"] ?>.jpg"
-                            alt="<?php echo $row["Nom"] ?>" />
-                    </div>
-                    <div class="card-content">
-                        <p class="card-content_categorie"><?php echo $row['Categories'] ?></p>
-                        <p class="card-content_date">
-                            <?php
-                                // Merci à Julp du forum OpenClassRoom pour avoir donné un code qui fonctionne 
-                                $datefmt = new IntlDateFormatter('fr_FR', NULL, NULL, NULL, NULL,  'dd MMMM yyyy');
-                                $date_evenement = date_create($row['Date_Evenement']);
-                                echo $datefmt->format($date_evenement); ?>
-                            à
-                            <?php $heure = new DateTimeImmutable($row['Heure_Evenement']);
-                                echo $heure->format('H\hi'); ?>
-                        </p>
-                        <h1 class="card-content_title"><?php echo $row["Titre"] ?>
-                        </h1>
-                        <p class="card-content_desc"><?php echo $row["Description"] ?></p>
-
-                    </div>
-                    <div class="card-content_otherinfo">
-                        <div class="flex-row">
-                            <div class="card-content_price">
-                                <p><?php echo $row["Prix_Evenement"] ?>€ / pers.</p>
-                            </div>
-                            <div class="card-content_seats">
-                                <p><?php echo $row["Nb_Place"] ?> places restantes</p>
-                            </div>
-                        </div>
-                        <div class="card-link">
-                            <button>Détails</button>
-                            <button>Ajouter au panier <img src="Images/ajout-produit-panier.svg" class="ajout-panier"
-                                    alt=""></button>
-                        </div>
-                    </div>
-                </a>
-            </div>
+                    </a>
+                </div>
             <?php } ?>
         </div>
     </section>
 
     <!-- Section à propos -->
     <section class="concept">
-        <h1 class="title">Le concept</h1>
+        <h2 class="title">Le concept</h2>
         <div class="img-desc">
             <div class="left">
                 <img src="Images/Logo_DonjonKraken.svg" alt=""></video>
             </div>
             <div class="right">
-                <h2>Le Donjon du Kraken c'est quoi ?</h2>
+                <h3>Le Donjon du Kraken c'est quoi ?</h3>
                 <p>Le Donjon du Kraken c'est votre plateforme de réservation d'évènements autour des jeux de sociétés.
                     <br><br>
                     N'avez vous jamais eu envie de jouer à des jeux de société mais vous n'étiez pas assez de joueur
@@ -212,20 +208,19 @@ $resultNouveauEvenement = $stmt->fetchall(PDO::FETCH_ASSOC);
 
     <!-- section categorie evenements -->
     <section class="categorie-evenement">
-        <h1 class="title">Catégorie d'évènements</h1>
+        <h2 class="title">Catégorie d'évènements</h2>
         <div class="content">
             <?php foreach ($resultCategorie as $row) { ?>
-            <div class="cart">
-                <a href="nos-evenements.php?categorie[]=<?php echo $row['ID_Categorie'] ?>">
-                    <img src="Images/Image_categorie/<?php echo $row['Image_Categorie'] ?>.jpg"
-                        alt="évènements <?php echo $row['Nom_categorie'] ?>">
-                    <div class=" content">
-                        <div>
-                            <h2><?php echo $row['Nom_categorie'] ?></h2>
+                <div class="cart">
+                    <a href="nos-evenements.php?categorie[]=<?php echo $row['ID_Categorie'] ?>">
+                        <img src="Images/Image_categorie/<?php echo $row['Image_Categorie'] ?>.jpg" alt="évènements <?php echo $row['Nom_categorie'] ?>">
+                        <div class=" content">
+                            <div>
+                                <h3><?php echo $row['Nom_categorie'] ?></h3>
+                            </div>
                         </div>
-                    </div>
-                </a>
-            </div>
+                    </a>
+                </div>
             <?php }; ?>
         </div>
     </section>

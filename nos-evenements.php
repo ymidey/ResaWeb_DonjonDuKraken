@@ -124,8 +124,7 @@ $resultEvenements = $stmt->fetchall(PDO::FETCH_ASSOC);
         <div class="filter-participant filter">
             <label for="participant">
                 <h2>Nombre de participant</h2>
-                <input type="number" id="participant" name="participant-evenement"
-                    placeholder="Combien de participant ?"
+                <input type="number" id="participant" name="participant-evenement" placeholder="Nombre attendu"
                     value="<?php echo isset($_GET['participant-evenement']) ? $_GET['participant-evenement'] : '' ?>" />
             </label>
         </div>
@@ -168,7 +167,7 @@ $resultEvenements = $stmt->fetchall(PDO::FETCH_ASSOC);
                                                                                         echo $_GET['tri'];
                                                                                     } else  echo "Tri : Date-croissante";
                                                                                     ?>" readonly>
-                <div class=" options">
+                <div class="options">
                     <div><a
                             href="nos-evenements.php?<?php echo http_build_query(array_merge($current_params, array('tri' => 'date croissante'))); ?>">Par
                             date croissante</a>

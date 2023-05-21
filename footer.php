@@ -2,7 +2,7 @@
     <div class="footer_addr">
         <img src="Images/Logo_DonjonKraken.svg" alt="" class="footer_logo">
 
-        <h1>Nous contacter :</h1>
+        <h2>Nous contacter :</h2>
         <address>2 Rue Albert Einstein, 77420 Champs-sur-Marne <br>
             <p>Email : midey.yannick@gmail.com</p>
         </address>
@@ -10,7 +10,7 @@
 
     <ul class="footer_nav">
         <li class="nav_item">
-            <h2 class="nav_title">Nos évènements</h2>
+            <h3 class="nav_title">Nos évènements</h3>
             <ul class="nav_ul">
                 <li>
                     <a href="nos-evenements.php?tri=date-croissant">Prochains évènements</a>
@@ -22,7 +22,7 @@
         </li>
 
         <li class="nav_item nav_item-extra">
-            <h2 class="nav_title">Catégories d'évènements</h2>
+            <h3 class="nav_title">Catégories d'évènements</h3>
 
             <ul class="nav_ul nav_ul--extra">
                 <?php foreach ($resultCategorie as $row) { ?>
@@ -34,7 +34,7 @@
             </ul>
         </li>
         <li class="nav_item">
-            <h2 class="nav_title">À propos</h2>
+            <h3 class="nav_title">À propos</h3>
 
             <ul class="nav_ul">
                 <li>
@@ -59,7 +59,14 @@
 
 
 </body>
+
+<?php $nom_page = basename($_SERVER['PHP_SELF']);
+if ($nom_page == 'accueil.php') { ?>
 <script src="js/script.js"></script>
+<?php };
+
+if ($nom_page == 'nos-evenements.php') { ?>
 <script src="js/scriptevenementpage.js"></script>
+<?php }; ?>
 
 </html>
