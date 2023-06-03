@@ -59,14 +59,8 @@
 
 
 </body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-<?php $nom_page = basename($_SERVER['PHP_SELF']);
-if ($nom_page == 'accueil.php') { ?>
 <script src="js/script.js"></script>
-<?php };
-
-if ($nom_page == 'nos-evenements.php') { ?>
-<script src="js/scriptevenementpage.js"></script>
-<?php }; ?>
 
 </html>

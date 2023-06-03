@@ -33,12 +33,9 @@ a {
 }
 
 * {
-    /* Surement le modifier */
     margin: 0;
     padding: 0;
-    /* Sa c'est bien */
     box-sizing: border-box;
-
     scroll-behavior: smooth;
 }
 
@@ -151,6 +148,8 @@ nav .links li:nth-child(-n + 3) a:hover::after {
     position: relative;
     color: #fff;
     background-image: url(Images/pexels-ylanite-koppens-776654.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 /* Div Hero-text CSS */
@@ -226,7 +225,7 @@ nav .links li:nth-child(-n + 3) a:hover::after {
     transition: 0.5s;
     padding: 10px 0 10px 0px;
     font-size: 1.15rem;
-    border-radius: 10%;
+    border-radius: 5%;
 }
 
 .hero .hero-form form input[type="submit"]:hover {
@@ -353,22 +352,22 @@ nav .links li:nth-child(-n + 3) a:hover::after {
     position: absolute;
 }
 
-.card-container .card-content_otherinfo .flex-row, .card-container .card-content_otherinfo .card-link {
+.card-container .card-content_otherinfo .flex-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding-bottom: 7%;
 }
 
 .card-content_price,
-.card-content_seats,
-.card-link button {
+.card-content_seats {
     display: flex;
     align-items: center;
     padding: 0.4em 0;
-    color: #c1784a;
+    color: #dc976c;
 }
 
-.card-container .card-content_otherinfo .card-link button {
+.link-detail {
     border: #c1784a solid 1px;
     border-radius: 5%;
     color: #fff;
@@ -376,15 +375,8 @@ nav .links li:nth-child(-n + 3) a:hover::after {
     background-color: transparent;
 }
 
-.card-container .card-content_otherinfo .card-link button:hover {
+.link-detail:hover {
     background-color: rgba(140, 136, 136, 0.4);
-}
-
-.card-container .card-content_otherinfo .card-link .ajout-panier {
-    filter: invert(1);
-    width: 30%;
-    padding-left: 5px;
-    max-width: 30px;
 }
 
 .card-container .card-container_images {
@@ -686,18 +678,24 @@ nav .links li:nth-child(-n + 3) a:hover::after {
     top: 12vh;
 }
 
-.test {
+.liste-evenements {
     display: flex;
     flex-direction: column;
     width: 100%;
     padding: 0 30px 0 30px;
 }
 
-.filter-form {
-    height: fit-content;
+.filter-div {
     display: flex;
+    align-items: center;
     flex-direction: column;
     background-color: #1f1b1b;
+    height: fit-content;
+}
+
+.filter-form {
+    display: flex;
+    flex-direction: column;
 }
 
 .filter-form fieldset {
@@ -741,6 +739,24 @@ nav .links li:nth-child(-n + 3) a:hover::after {
     flex-direction: column;
 }
 
+.filter-div button[type="submit"] {
+    align-self: center;
+    background-color: rgb(197, 0, 0);
+    color: #fff;
+    cursor: pointer;
+    padding: 6px 4px 6px 4px;
+    margin-bottom: 10px;
+    font-size: 1rem;
+    border: none;
+    width: fit-content;
+    transition: background-color 1s ease-in-out;
+}
+
+.filter-div button[type="submit"]:hover {
+    background-color: rgb(153, 15, 15);
+
+}
+
 .recherche {
     color: #ffffff;
     max-height: 45px;
@@ -765,7 +781,7 @@ nav .links li:nth-child(-n + 3) a:hover::after {
     border: 1px solid transparent;
 }
 
-input[type="search"]::placeholder {
+.recherche input[type="search"]::placeholder {
     color: #bbb;
 }
 
@@ -873,7 +889,7 @@ button[type="submit"]:hover {
 }
 
 
-/* CSS evenement.php page */
+/* CSS detail-evenement.php page */
 .evenement {
     position: relative;
     top: 12vh;
@@ -890,14 +906,13 @@ button[type="submit"]:hover {
     position: relative;
     display: flex;
     justify-content: space-around;
-
 }
 
 .evenement .evenement-header .evenement-text {
     display: flex;
     position: relative;
     flex-direction: column;
-    max-width: 600px;
+    max-width: 700px;
     height: 500px;
 }
 
@@ -905,19 +920,248 @@ button[type="submit"]:hover {
     margin-bottom: 10px;
 }
 
+.evenement-text h1 {
+    color: #dc976c;
+}
+
+.evenement-text h2 {
+    font-size: 1rem;
+}
+
 .evenement .evenement-header .evenement-text .evenement-attribut {
     display: flex;
+    gap: 15px;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 
 .evenement .evenement-header .evenement-text .evenement-attribut p {
     background-color: #5a5a5a;
     padding: 10px;
-    border-radius: 10%;
+    border-radius: 2%;
 }
 
-.evenement .evenement-header .evenement-text form {
+.evenement .evenement-header .evenement-text .evenement-ajout {
+    border: solid 1px #e8dfd9 !important;
+    padding: 15px 30px 15px 30px !important;
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center
+}
+
+.bloc-ajout-infos {
+    margin-bottom: 5px;
+    line-height: 20px;
+    font-size: 1em;
+    font-weight: normal;
+}
+
+.message {
+    position: absolute;
+    font-size: 1rem;
+    padding: 1% 3%;
+    left: 50%;
+    top: 10%;
+    z-index: 999;
+    border-radius: 3%;
+    transform: translate(-50%, -50%);
+}
+
+.message-succes {
+    background-color: green;
+
+}
+
+.message-error {
+    background-color: rgb(197, 0, 0);
+
+}
+
+/* Style CSS de la page Panier.php */
+.panier {
+    position: relative;
+    top: 12vh;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.panier-content {
+    display: flex;
+    margin-bottom: 40px;
+}
+
+.title-card {
+    display: flex;
+    color: #fff;
+    padding: 0 0 17px 0;
+    margin-bottom: 5px;
+    font-size: 1.225rem;
+    justify-content: space-between;
+}
+
+.panier-content table {
+    margin-top: 5px;
+    padding: 0;
+    background-color: #fff;
+    color: #333;
+}
+
+.panier-content table, .panier-content th, .panier-content td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+table caption {
+    font-size: 1.5rem;
+    color: #fff;
+    background-color: #000;
+    padding-bottom: 3px;
+}
+
+thead {
+    background-color: #dc976c;
+}
+
+tfoot {
+    background-color: #d8d7d7;
+}
+
+th, td {
+    padding: 5px;
+}
+
+.td-number, tfoot {
+    padding-right: 5px;
+    text-align: right;
+}
+
+.form-delete-produit button[type="submit"] {
+    all: unset;
+    cursor: pointer;
+    text-align: center;
+}
+
+.form-delete-produit button[type="submit"] img {
+    max-width: 40%;
+    align-self: center;
+    transition: all 0.3s ease-in-out;
+    filter: brightness(70%);
+
+}
+
+.form-delete-produit button[type="submit"] img:hover {
+    transform: scale(1.1);
+    filter: brightness(100%);
+}
+
+
+.btn-open-modal-panier {
+    text-align: center;
+    padding: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.form-delete-panier {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+
+.form-delete-panier .btn-delete-panier {
+    background-color: rgb(138, 61, 61);
+    border: 1px;
+    border-radius: 5%;
+    padding: 10px;
+    color: #fff;
+    transition: background-color, transform .6s ease-out;
+}
+
+.form-delete-panier .btn-delete-panier:hover {
+    transform: scale(1.2);
+    background-color: rgb(177, 96, 96);
+}
+
+.panier a {
+    color: #e4a984;
+    text-decoration: underline;
+}
+
+/* CSS de ma div (modal) reservinfo*/
+.reservinfo {
+    position: fixed;
+    flex-direction: column;
+    display: flex;
+    z-index: 999;
+    font-size: 1.225rem;
+    background-color: rgba(55, 54, 54, 1);
+    padding: 3rem;
+    border-radius: 30px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 50vh;
+    width: 60%;
+    text-align: center;
+    align-items: center;
+}
+
+.reservinfo .closeReservInfo {
+    position: absolute;
+    right: 32px;
+    top: 32px;
+    width: 32px;
+    height: 32px;
+    opacity: 0.7;
+}
+
+.form-reservation {
     display: flex;
     flex-direction: column;
+}
+
+
+.btn-reserv-submit {
+    padding: 8px;
+    font-size: 1.225rem;
+    margin: 10px 0 10px 0;
+    border-radius: 15px;
+    transition: background-color 1s ease-out;
+}
+
+.btn-reserv-submit:hover {
+    background-color: #ffd3b8;
+}
+
+.reservinfo .closeReservInfo:before, .closeReservInfo:after {
+    position: absolute;
+    left: 15px;
+    content: ' ';
+    height: 33px;
+    width: 2px;
+    background-color: rgb(255, 255, 255);
+}
+
+.reservinfo .closeReservInfo:hover {
+    opacity: 1;
+    cursor: pointer;
+}
+
+
+.reservinfo .closeReservInfo:before {
+    transform: rotate(45deg);
+}
+
+.reservinfo .closeReservInfo:after {
+    transform: rotate(-45deg);
+}
+
+.modal-invisible {
+    visibility: hidden;
+}
+
+
+.modal-visible {
+    visibility: visible;
 }

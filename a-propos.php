@@ -55,7 +55,7 @@ include("header.php");
 
         <h3>Traitement des données personnelles (RGPD)
         </h3>
-        <p>Lorsqu'un client réserve un évènement, sont collectées : son nom et l’adresse e-mail qu’il
+        <p>Lorsqu'un client réserve un évènement, sont collectées : le nom, le prénom et l'adresse e-mail qu’il
             a indiqué dans le formulaire.
             Ces données sont collectées car il permette à notre plateforme d’envoyer le mail de
             confirmation contenant toutes les informations de l'événement reservées.
