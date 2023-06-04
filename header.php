@@ -1,21 +1,14 @@
 <?php
+// On fait appel à notre fichier connexion.php afin de se connecter à la bdd
 include('connexion.php');
 
-session_start(); // Assurez-vous d'appeler session_start() au début de chaque page utilisant $_SESSION
+// On créer une session pour le visiteur
+session_start();
 
+// Requête SQL afin de récupérer toutes les catégories de la table nommée sae203_categories
 $requeteCategorie = "SELECT * FROM sae203_categories";
 $stmt = $db->query($requeteCategorie);
 $resultCategorie = $stmt->fetchall(PDO::FETCH_ASSOC);
-
-if (isset($_GET['ID_Evenement'])) {
-    $idEvenement = $_GET['ID_Evenement'];
-    $requeteJeuNom = "SELECT sae203_jeux.Nom FROM sae203_jeux 
-JOIN sae203_evenements ON sae203_jeux.ID_Jeu = sae203_evenements.ID_Jeu
-WHERE sae203_evenements.ID_Evenement = $idEvenement";
-    $stmt = $db->query($requeteJeuNom);
-    $resultJeuNom = $stmt->fetchall(PDO::FETCH_ASSOC);
-}
-
 ?>
 
 <!DOCTYPE html>
@@ -26,8 +19,7 @@ WHERE sae203_evenements.ID_Evenement = $idEvenement";
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description"
-        content="Le donjon du Kraken - Réservations d'évènement de jeux de société à Champs-Sur-Marne">
+    <meta name="description" content="Le donjon du Kraken - Réservations d'évènement de jeux de société à Champs-Sur-Marne">
     <title>Le donjon du Kraken - <?php if (isset($_GET['recherche'])) {
                                         echo $_GET['recherche'];
                                     } else if (isset($_GET['ID_Evenement'])) {
@@ -37,7 +29,12 @@ WHERE sae203_evenements.ID_Evenement = $idEvenement";
                                     } else
                                         echo "Réservations d'évènement de jeux de société" ?>
     </title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g==" crossorigin="anonymous" referrerpolicy="no-referrer">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" integrity="sha512-sMXtMNL1zRzolHYKEujM2AqCLUR9F2C4/05cdbxjjLSRvMQIciEPCQZo++nk7go3BtSuK9kfa/s+a4f4i5pLkw==" crossorigin="anonymous" referrerpolicy="no-referrer">
+
 </head>
 
 <body>
@@ -46,8 +43,8 @@ WHERE sae203_evenements.ID_Evenement = $idEvenement";
         <nav>
             <?php
             $nom_page = basename($_SERVER['PHP_SELF']);
-            if ($nom_page == 'accueil.php') { ?>
-            <a href="#form_reservation" class="skip-link">Passer au formulaire</a>
+            if (($nom_page == 'accueil.php') || ($nom_page == 'nos-evenements.php')) { ?>
+                <a href="#form_reservation" class="skip-link">Passer au formulaire</a>
             <?php }; ?>
             <div class="logo">
                 <a href="accueil.php">

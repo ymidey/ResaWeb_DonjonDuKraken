@@ -9,6 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['add-participant']) && i
     $nombreParticipants = $_GET['add-participant'];
     $IdEvenement = $_GET['ID_Evenement'];
 
+    // Cette requête récupére les informations d'un événement spécifique à l'aide de son id, à partir d'une base de données et stocke ces informations dans la variable $resultInfoEvenement.
     $infoEvenement = "SELECT * FROM sae203_evenements WHERE ID_Evenement = $IdEvenement";
     $stmt = $db->query($infoEvenement);
     $resultInfoEvenement = $stmt->fetch(PDO::FETCH_ASSOC);

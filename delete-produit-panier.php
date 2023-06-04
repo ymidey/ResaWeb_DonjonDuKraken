@@ -13,7 +13,9 @@ if (isset($_POST['supprimer-produit'])) {
         header("Location: panier.php");
         exit();
     }
-} else {
+} // S'il n'a pas été soumis, cela veut dire que notre utilisateur souhaite supprimer complètement son panier 
+else {
+    // Je vide donc le tableau panier de ma variable de session
     unset($_SESSION['panier']);
     header("Location: panier.php");
     exit();
