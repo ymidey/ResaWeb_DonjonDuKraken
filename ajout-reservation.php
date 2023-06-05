@@ -73,7 +73,7 @@ if (isset($_SESSION['panier']) && count($_SESSION['panier']) > 0) {
       <tbody>";
   $counter = 0;
   foreach ($participantsArray as $evenement) {
-    $DateEvenement = $panier[$counter]['date_evenement'];
+    $DateEvenement = $panier[$counter]['date_evenement']->format('d-m-y');
     $TitreEvenement = $panier[$counter]['nomEvenement'];
     $prixEvenement = $panier[$counter]['prixEvenement'];
 

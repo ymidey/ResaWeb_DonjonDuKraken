@@ -19,7 +19,7 @@ $resultCategorie = $stmt->fetchall(PDO::FETCH_ASSOC);
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Le donjon du Kraken - Réservations d'évènement de jeux de société à Champs-Sur-Marne">
+    <meta name="description" content="Le donjon du Kraken - Réservations d'événement de jeux de société à Champs-Sur-Marne">
     <title>Le donjon du Kraken - <?php if (isset($_GET['recherche'])) {
                                         echo $_GET['recherche'];
                                     } else if (isset($_GET['ID_Evenement'])) {
