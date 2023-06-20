@@ -1,8 +1,12 @@
 <?php
+
 include("header.php");
+
+// Requête SQL pour récupérer les catégories
 $requeteCategorie = "SELECT * FROM sae203_categories";
-$stmt = $db->query($requeteCategorie);
-$resultCategorie = $stmt->fetchall(PDO::FETCH_ASSOC);
+$stmtCategorie = $db->prepare($requeteCategorie);
+$stmtCategorie->execute();
+$resultCategorie = $stmtCategorie->fetchAll(PDO::FETCH_ASSOC);
 
 // Requête SQL afin de récupérer les informations des 12 prochains évènements de ma base de données à l'aide des ligne WHERE sae203_evenements.Date_Evenement >= CURDATE () et ASC LIMIT 7
 $requeteProchainEvenement = "SELECT sae203_jeux.*, sae203_evenements.*, GROUP_CONCAT(sae203_categories.Nom_Categorie SEPARATOR ', ') AS Categories
@@ -13,8 +17,9 @@ JOIN sae203_categories ON sae203_categories.ID_Categorie = sae203_lien_jeuxcateg
 WHERE sae203_evenements.Date_Evenement >= CURDATE()
 GROUP BY sae203_evenements.ID_Evenement
 ORDER BY sae203_evenements.Date_Evenement ASC LIMIT 12";
-$stmt = $db->query($requeteProchainEvenement);
-$resultProchainEvenement = $stmt->fetchall(PDO::FETCH_ASSOC);
+$stmtProchainEvenement = $db->prepare($requeteProchainEvenement);
+$stmtProchainEvenement->execute();
+$resultProchainEvenement = $stmtProchainEvenement->fetchAll(PDO::FETCH_ASSOC);
 
 // Requête SQL afin de récupérer les informations des 8 nouveaux évènements de ma base de données à l'aide des ligne WHERE sae203_evenements.Date_Creation <= CURDATE () et DESC LIMIT 5
 $requeteNouveauEvenement = "SELECT sae203_jeux.*, sae203_evenements.*, GROUP_CONCAT(sae203_categories.Nom_Categorie SEPARATOR ', ') AS Categories
@@ -25,8 +30,9 @@ JOIN sae203_categories ON sae203_categories.ID_Categorie = sae203_lien_jeuxcateg
 WHERE sae203_evenements.Date_Creation <= CURDATE() 
 GROUP BY sae203_evenements.ID_Evenement
 ORDER BY sae203_evenements.Date_Creation DESC LIMIT 8";
-$stmt = $db->query($requeteNouveauEvenement);
-$resultNouveauEvenement = $stmt->fetchall(PDO::FETCH_ASSOC);
+$stmtNouveauEvenement = $db->prepare($requeteNouveauEvenement);
+$stmtNouveauEvenement->execute();
+$resultNouveauEvenement = $stmtNouveauEvenement->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 

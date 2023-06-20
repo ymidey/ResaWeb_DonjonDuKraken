@@ -10,23 +10,26 @@ if (isset($_GET['success']) && $_GET['success'] == 'true') {
         </div>';
 }
 // Vérifiez si un message d'erreur doit être affiché
-else if (isset($_GET['error']) && $_GET['succes'] == 'false') {
+else if (isset($_GET['error']) && $_GET['success'] == 'false') {
     echo '<div class="message message-error">
             <p>Une erreur est survenue lors de l\'ajout de l\'événement dans votre panier</p>
         </div>';
 };
 
-// Ce script récupére les détails d'un événement spécifique à l'aide de son id à partir de plusieurs tables dans une base de données, et stocke ces détails dans la variable $resultEvenement.
+// Ce script récupère les détails d'un événement spécifique à l'aide de son id à partir de plusieurs tables dans une base de données, et stocke ces détails dans la variable $resultEvenement.
+
 $requeteDetailEvenement =
-    " SELECT sae203_jeux.*, sae203_evenements.*, GROUP_CONCAT(sae203_categories.Nom_Categorie SEPARATOR ', ') AS Categories
+    "SELECT sae203_jeux.*, sae203_evenements.*, GROUP_CONCAT(sae203_categories.Nom_Categorie SEPARATOR ', ') AS Categories
 FROM sae203_jeux
 JOIN sae203_evenements ON sae203_jeux.ID_Jeu = sae203_evenements.ID_Jeu 
 JOIN sae203_lien_jeuxcategories ON sae203_jeux.ID_Jeu = sae203_lien_jeuxcategories.ID_Jeu 
 JOIN sae203_categories ON sae203_categories.ID_Categorie = sae203_lien_jeuxcategories.ID_Categorie
-WHERE sae203_evenements.ID_Evenement = $evenement";
+WHERE sae203_evenements.ID_Evenement = :evenement";
 
-$stmt = $db->query($requeteDetailEvenement);
-$resultEvenement = $stmt->fetchall(PDO::FETCH_ASSOC);
+$stmt = $db->prepare($requeteDetailEvenement);
+$stmt->bindParam(':evenement', $evenement);
+$stmt->execute();
+$resultEvenement = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
 <main>

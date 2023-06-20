@@ -1,4 +1,5 @@
 <?php
+
 include('connexion.php');
 session_start();
 
@@ -13,11 +14,16 @@ if (isset($_SESSION['panier']) && count($_SESSION['panier']) > 0) {
   $participantsData = $_POST['nb_participant_par_evenement'];
   $participantsArray = json_decode($participantsData, true);
 
-  // Insére les données dans la table "sae203_reservations"
-  $InsertReservation = "INSERT INTO sae203_reservations (Nom_Client, Prenom_Client, Adressemail_Client, PrixTotal, Date_Reservation) VALUES ('$nom', '$prenom', '$email', '$prixTotal', NOW())";
-  $stmt = $db->exec($InsertReservation);
+  // Insére les données dans la table "sae203_reservations" en utilisant une requête préparée
+  $InsertReservation = "INSERT INTO sae203_reservations (Nom_Client, Prenom_Client, Adressemail_Client, PrixTotal, Date_Reservation) VALUES (:nom, :prenom, :email, :prixTotal, NOW())";
+  $stmtInsertReservation = $db->prepare($InsertReservation);
+  $stmtInsertReservation->bindParam(':nom', $nom);
+  $stmtInsertReservation->bindParam(':prenom', $prenom);
+  $stmtInsertReservation->bindParam(':email', $email);
+  $stmtInsertReservation->bindParam(':prixTotal', $prixTotal);
+  $stmtInsertReservation->execute();
 
-  // Ici, on récupère le nouvelle ID généré lors de la précédante requête
+  // Récupérer le nouvel ID généré lors de la précédente requête
   $idReservation = $db->lastInsertId();
 
   $evenementsReservation = array();
@@ -25,15 +31,20 @@ if (isset($_SESSION['panier']) && count($_SESSION['panier']) > 0) {
   foreach ($participantsArray as $evenement) {
     $idEvenement = $evenement['id_evenement'];
     $nombreParticipants = $evenement['participants'];
-    $evenementsReservation[] = "($idReservation, $idEvenement, $nombreParticipants)";
+    $evenementsReservation[] = "(:idReservation, :idEvenement, :nombreParticipants)";
   }
 
-  // On insére les données dans la table "sae203_lien_evenementsreservations" si la variable $evenementsReservation n'est pas vide
+  // Insérer les données dans la table "sae203_lien_evenementsreservations" en utilisant une requête préparée
   if (!empty($evenementsReservation)) {
     $values = implode(", ", $evenementsReservation);
     $InsertLienEvenementsReservation = "INSERT INTO sae203_lien_evenementsreservations (ID_Reservation, ID_Evenement, Nb_participant) VALUES $values";
-    $stmt = $db->exec($InsertLienEvenementsReservation);
+    $stmtInsertLienEvenementsReservation = $db->prepare($InsertLienEvenementsReservation);
+    $stmtInsertLienEvenementsReservation->bindParam(':idReservation', $idReservation);
+    $stmtInsertLienEvenementsReservation->bindParam(':idEvenement', $idEvenement);
+    $stmtInsertLienEvenementsReservation->bindParam(':nombreParticipants', $nombreParticipants);
+    $stmtInsertLienEvenementsReservation->execute();
   }
+}
 
   // On vide le panier
   $_SESSION['panier'] = array();

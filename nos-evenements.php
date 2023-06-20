@@ -12,6 +12,8 @@ JOIN sae203_lien_jeuxcategories ON sae203_jeux.ID_Jeu = sae203_lien_jeuxcategori
 JOIN sae203_categories ON sae203_categories.ID_Categorie = sae203_lien_jeuxcategories.ID_Categorie
 WHERE sae203_evenements.Date_Evenement >= CURDATE()";
 
+$params = array();
+
 if (isset($_GET['categorie']) && !empty($_GET['categorie'])) {
     $categories = $_GET['categorie'];
     $requeteEvenements .= " AND sae203_jeux.ID_Jeu IN 
@@ -20,31 +22,34 @@ if (isset($_GET['categorie']) && !empty($_GET['categorie'])) {
           JOIN sae203_lien_jeuxcategories ON sae203_jeux.ID_Jeu = sae203_lien_jeuxcategories.ID_Jeu 
          WHERE ";
     foreach ($categories as $categorie) {
-        $requeteEvenements .= "sae203_lien_jeuxcategories.ID_Categorie = $categorie OR ";
+        $requeteEvenements .= "sae203_lien_jeuxcategories.ID_Categorie = :categorie$categorie OR ";
+        $params[":categorie$categorie"] = $categorie;
     }
     $requeteEvenements = rtrim($requeteEvenements, " OR ");
     $requeteEvenements .= ")";
 }
 
-
 // créer la requête de filtrage en fonction des valeurs du formulaire
 if (isset($_GET['date-evenement']) && !empty($_GET['date-evenement'])) {
     $date = $_GET['date-evenement'];
-    $requeteEvenements .= " AND sae203_evenements.Date_Evenement = '$date'";
+    $requeteEvenements .= " AND sae203_evenements.Date_Evenement = :date_evenement";
+    $params[':date_evenement'] = $date;
 }
 if (isset($_GET['participant-evenement']) && !empty($_GET['participant-evenement'])) {
     $participant = $_GET['participant-evenement'];
-    $requeteEvenements .= " AND sae203_evenements.Nb_Place >= $participant";
+    $requeteEvenements .= " AND sae203_evenements.Nb_Place >= :participant_evenement";
+    $params[':participant_evenement'] = $participant;
 }
 if (isset($_GET['prix']) && !empty($_GET['prix'])) {
     $prix = $_GET['prix'];
-    $requeteEvenements .= " AND sae203_evenements.Prix_evenement < '$prix'";
+    $requeteEvenements .= " AND sae203_evenements.Prix_evenement < :prix";
+    $params[':prix'] = $prix;
 }
-
 
 if (isset($_GET['recherche']) && !empty($_GET['recherche'])) {
     $recherche = $_GET['recherche'];
-    $requeteEvenements .= " AND sae203_evenements.Titre LIKE '%$recherche%'";
+    $requeteEvenements .= " AND sae203_evenements.Titre LIKE :recherche";
+    $params[':recherche'] = "%$recherche%";
 }
 
 $requeteEvenements .= " GROUP BY sae203_evenements.ID_Evenement ";
@@ -73,8 +78,9 @@ if (isset($_GET['tri'])) {
 }
 
 // exécuter la requête de filtrage
-$stmt = $db->query($requeteEvenements);
-$resultEvenements = $stmt->fetchall(PDO::FETCH_ASSOC);
+$stmt = $db->prepare($requeteEvenements);
+$stmt->execute($params);
+$resultEvenements = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
 <main>
