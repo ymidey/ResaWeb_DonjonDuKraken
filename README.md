@@ -4,7 +4,7 @@ Projet étudiant MMI réalisé par Yannick Midey étudiant de 1ère années de B
 
 Voici le lien pour accéder à mon site en public :
 
-[http://resaweb.midey.butmmi.o2switch.site]
+[https://resaweb.midey.butmmi.o2switch.site]
 
 Pour que mon site fonctionne parfaitement, il faut désactiver tout bloqueur de pub, car j'utilise des scripts JQuery externes
 
